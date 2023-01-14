@@ -27,7 +27,7 @@ go run cmd/vulcan/main.go \
     --mandrill.email_welcome_subject="Welcome" \
     --mandrill.email_welcome_template_name="welcome" \
     --mandrill.from_name="furya noreply" \
-    --mandrill.from_email="noreply@furyadev.com" \
+    --mandrill.from_email="noreply@furyaev.com" \
     --blockchain.node="zeus.testnet.furya.xyz:26656" \
     --blockchain.from="zeus" \
     --blockchain.tx_memo="you're beautiful" \
@@ -52,7 +52,7 @@ go run cmd/vulcan/main.go \
 | mandrill.welcome_email_subject    | MANDRILL_WELCOME_EMAIL_SUBJECT    | furya.xyz - Verification | false | subject for welcome emails
 | mandrill.welcome_email_template_name    | MANDRILL_WELCOME_EMAIL_TEMPLATE_NAME    | | true | mandrill's welcome template to be sent
 | mandrill.from_name    | MANDRILL_FROM_NAME    | furya.xyz | false | name for emails sender
-| mandrill.from_email    | MANDRILL_FROM_NAME    | noreply@furyadev.com | true | email for emails sender
+| mandrill.from_email    | MANDRILL_FROM_NAME    | noreply@furyaev.com | true | email for emails sender
 | blockchain.node   | BLOCKCHAIN_NODE    | http://zeus.mainnet.furya.xyz:26657 | true | furya node address
 | blockchain.from   | BLOCKCHAIN_FROM    | | true | furya account name to send stakes
 | blockchain.tx_memo   | BLOCKCHAIN_TX_MEMO    | | false | furya tx's memo

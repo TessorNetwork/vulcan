@@ -56,12 +56,12 @@ var opts = struct {
 	MandrillWelcomeEmailSubject           string `long:"mandrill.welcome_email_subject" env:"MANDRILL_WELCOME_EMAIL_SUBJECT" default:"furya.xyz - Verified" description:"subject for welcome emails"`
 	MandrillWelcomeEmailTemplateName      string `long:"mandrill.welcome_email_template_name" env:"MANDRILL_WELCOME_EMAIL_TEMPLATE_NAME" description:"mandrill's welcome template to be sent" required:"true"`
 	MandrillFromName                      string `long:"mandrill.from_name" env:"MANDRILL_FROM_NAME" default:"furya.xyz" description:"name for emails sender"`
-	MandrillFromEmail                     string `long:"mandrill.from_email" env:"MANDRILL_FROM_EMAIL" default:"noreply@furyadev.com" description:"email for emails sender"`
+	MandrillFromEmail                     string `long:"mandrill.from_email" env:"MANDRILL_FROM_EMAIL" default:"noreply@furyaev.com" description:"email for emails sender"`
 
 	GmailVerificationEmailSubject string `long:"gmail.verification_email_subject" env:"GMAIL_VERIFICATION_EMAIL_SUBJECT" default:"Furya - Verification" description:"subject for verification emails"`
 	GmailWelcomeEmailSubject      string `long:"gmail.welcome_email_subject" env:"GMAIL_WELCOME_EMAIL_SUBJECT" default:"Furya - Verified" description:"subject for welcome emails"`
 	GmailFromName                 string `long:"gmail.from_name" env:"GMAIL_FROM_NAME" default:"Furya" description:"name for emails sender"`
-	GmailFromEmail                string `long:"gmail.from_email" env:"GMAIL_FROM_EMAIL" default:"no-reply@furyadev.com" description:"email for emails sender"`
+	GmailFromEmail                string `long:"gmail.from_email" env:"GMAIL_FROM_EMAIL" default:"no-reply@furyaev.com" description:"email for emails sender"`
 	GmailFromPassword             string `long:"gmail.from_password" env:"GMAIL_FROM_PASSWORD" default:"" description:"password for emails sender"`
 	GmailSMTPHost                 string `long:"gmail.smtp_host" env:"GMAIL_SMTP_HOST" default:"smtp.gmail.com" description:"SMTP host"`
 	GmailSMTPPort                 int    `long:"gmail.smtp_port" env:"GMAIL_SMTP_PORT" default:"587" description:"SMTP port"`
