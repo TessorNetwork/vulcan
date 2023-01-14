@@ -1,12 +1,12 @@
-module github.com/TessorNetwork/vulcan
+module github.com/TessorNetwork/furya
 
 go 1.16
 
 require (
-	github.com/TessorNetwork/furya v1.5.7
-	github.com/TessorNetwork/go-api v0.1.1
-	github.com/TessorNetwork/go-broadcaster v0.1.2
-	github.com/TessorNetwork/logrus v0.7.2-0.20210316223658-7a9b48625189
+	github.com/Decentr-net/decentr v1.5.7
+	github.com/Decentr-net/go-api v0.1.1
+	github.com/Decentr-net/go-broadcaster v0.1.2
+	github.com/Decentr-net/logrus v0.7.2-0.20210316223658-7a9b48625189
 	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/cosmos/cosmos-sdk v0.44.3
 	github.com/ethereum/go-ethereum v1.10.8
