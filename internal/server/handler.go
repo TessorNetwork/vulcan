@@ -13,12 +13,12 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/sirupsen/logrus"
 
-	"github.com/Decentr-net/decentr/config"
-	"github.com/Decentr-net/go-api"
+	"github.com/TessorNetwork/furya/config"
+	"github.com/TessorNetwork/go-api"
 
-	"github.com/Decentr-net/vulcan/internal/mail"
-	"github.com/Decentr-net/vulcan/internal/service"
-	"github.com/Decentr-net/vulcan/internal/storage"
+	"github.com/TessorNetwork/vulcan/internal/mail"
+	"github.com/TessorNetwork/vulcan/internal/service"
+	"github.com/TessorNetwork/vulcan/internal/storage"
 )
 
 // register sends email with link to create new wallet.
@@ -254,11 +254,11 @@ func (s *server) getReferralConfig(w http.ResponseWriter, _ *http.Request) {
 	api.WriteOK(w, http.StatusOK, s.s.GetReferralConfig())
 }
 
-// trackReferralBrowserInstallation tracks the Decentr browser installation.
+// trackReferralBrowserInstallation tracks the Furya browser installation.
 func (s *server) trackReferralBrowserInstallation(w http.ResponseWriter, r *http.Request) {
 	// swagger:operation POST /v1/referral/track/install/{address} Vulcan TrackBrowserInstallation
 	//
-	// Tracks the Decentr browser installation.
+	// Tracks the Furya browser installation.
 	//
 	// ---
 	// produces:

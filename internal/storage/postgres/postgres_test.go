@@ -25,7 +25,7 @@ import (
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
 
-	"github.com/Decentr-net/vulcan/internal/storage"
+	"github.com/TessorNetwork/vulcan/internal/storage"
 )
 
 var (

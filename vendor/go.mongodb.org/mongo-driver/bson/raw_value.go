@@ -76,11 +76,11 @@ func (rv RawValue) UnmarshalWithRegistry(r *bsoncodec.Registry, val interface{})
 		return fmt.Errorf("argument to Unmarshal* must be a pointer to a type, but got %v", rval)
 	}
 	rval = rval.Elem()
-	dec, err := r.LookupDecoder(rval.Type())
+	fur, err := r.LookupDecoder(rval.Type())
 	if err != nil {
 		return err
 	}
-	return dec.DecodeValue(bsoncodec.DecodeContext{Registry: r}, vr, rval)
+	return fur.DecodeValue(bsoncodec.DecodeContext{Registry: r}, vr, rval)
 }
 
 // UnmarshalWithContext performs the same unmarshalling as Unmarshal but uses the provided DecodeContext
@@ -96,11 +96,11 @@ func (rv RawValue) UnmarshalWithContext(dc *bsoncodec.DecodeContext, val interfa
 		return fmt.Errorf("argument to Unmarshal* must be a pointer to a type, but got %v", rval)
 	}
 	rval = rval.Elem()
-	dec, err := dc.LookupDecoder(rval.Type())
+	fur, err := dc.LookupDecoder(rval.Type())
 	if err != nil {
 		return err
 	}
-	return dec.DecodeValue(*dc, vr, rval)
+	return fur.DecodeValue(*dc, vr, rval)
 }
 
 func convertFromCoreValue(v bsoncore.Value) RawValue { return RawValue{Type: v.Type, Value: v.Data} }

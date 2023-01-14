@@ -1,8 +1,8 @@
 # Vulcan
-![img](https://img.shields.io/docker/cloud/build/decentr/vulcan.svg) ![img](https://img.shields.io/github/go-mod/go-version/Decentr-net/vulcan) ![img](https://img.shields.io/github/v/tag/Decentr-net/vulcan?label=version)
+![img](https://img.shields.io/docker/cloud/build/furya/vulcan.svg) ![img](https://img.shields.io/github/go-mod/go-version/TessorNetwork/vulcan) ![img](https://img.shields.io/github/v/tag/TessorNetwork/vulcan?label=version)
 
-Vulcan provides Decentr off-chain functionality. The Vulcan uses decentrcli home for sending messages to blockchain.  
-You should provide decentrcli home directory to this service. The Vulcan will use it for transactions signing. 
+Vulcan provides Furya off-chain functionality. The Vulcan uses furyacli home for sending messages to blockchain.  
+You should provide furyacli home directory to this service. The Vulcan will use it for transactions signing. 
 
 
 ## Run
@@ -26,9 +26,9 @@ go run cmd/vulcan/main.go \
     --mandrill.email_verification_template_name="confirmation" \
     --mandrill.email_welcome_subject="Welcome" \
     --mandrill.email_welcome_template_name="welcome" \
-    --mandrill.from_name="decentr noreply" \
-    --mandrill.from_email="noreply@decentrdev.com" \
-    --blockchain.node="zeus.testnet.decentr.xyz:26656" \
+    --mandrill.from_name="furya noreply" \
+    --mandrill.from_email="noreply@furyadev.com" \
+    --blockchain.node="zeus.testnet.furya.xyz:26656" \
     --blockchain.from="zeus" \
     --blockchain.tx_memo="you're beautiful" \
     --blockchain.initial_stake=1000000
@@ -47,25 +47,25 @@ go run cmd/vulcan/main.go \
 | postgres.max_idle_connections    | POSTGRES_MAX_IDLE_CONNECTIONS    | 5 | true | postgres maximal idle connections count
 | postgres.migrations    | POSTGRES_MIGRATIONS    | /migrations/postgres | true | postgres migrations directory
 | mandrill.api_key    | MANDRILL_API_KEY   | | true |  mandrillapp.com api key
-| mandrill.verification_email_subject    | MANDRILL_VERIFICATION_EMAIL_SUBJECT    | decentr.xyz - Verification | false | subject for verification emails
+| mandrill.verification_email_subject    | MANDRILL_VERIFICATION_EMAIL_SUBJECT    | furya.xyz - Verification | false | subject for verification emails
 | mandrill.verification_email_template_name    | MANDRILL_VERIFICATION_EMAIL_TEMPLATE_NAME    | | true | mandrill's verification template to be sent
-| mandrill.welcome_email_subject    | MANDRILL_WELCOME_EMAIL_SUBJECT    | decentr.xyz - Verification | false | subject for welcome emails
+| mandrill.welcome_email_subject    | MANDRILL_WELCOME_EMAIL_SUBJECT    | furya.xyz - Verification | false | subject for welcome emails
 | mandrill.welcome_email_template_name    | MANDRILL_WELCOME_EMAIL_TEMPLATE_NAME    | | true | mandrill's welcome template to be sent
-| mandrill.from_name    | MANDRILL_FROM_NAME    | decentr.xyz | false | name for emails sender
-| mandrill.from_email    | MANDRILL_FROM_NAME    | noreply@decentrdev.com | true | email for emails sender
-| blockchain.node   | BLOCKCHAIN_NODE    | http://zeus.mainnet.decentr.xyz:26657 | true | decentr node address
-| blockchain.from   | BLOCKCHAIN_FROM    | | true | decentr account name to send stakes
-| blockchain.tx_memo   | BLOCKCHAIN_TX_MEMO    | | false | decentr tx's memo
-| blockchain.chain_id   | BLOCKCHAIN_CHAIN_ID    | testnet | true| decentr chain id
-| blockchain.client_home   | BLOCKCHAIN_CLIENT_HOME    | ~/.decentrcli | true | decentrcli home directory
-| blockchain.keyring_backend   | BLOCKCHAIN_KEYRING_BACKEND    | test | true | decentrcli keyring backend
-| blockchain.keyring_prompt_input   | BLOCKCHAIN_KEYRING_PROMPT_INPUT    | | false | decentrcli keyring prompt input
+| mandrill.from_name    | MANDRILL_FROM_NAME    | furya.xyz | false | name for emails sender
+| mandrill.from_email    | MANDRILL_FROM_NAME    | noreply@furyadev.com | true | email for emails sender
+| blockchain.node   | BLOCKCHAIN_NODE    | http://zeus.mainnet.furya.xyz:26657 | true | furya node address
+| blockchain.from   | BLOCKCHAIN_FROM    | | true | furya account name to send stakes
+| blockchain.tx_memo   | BLOCKCHAIN_TX_MEMO    | | false | furya tx's memo
+| blockchain.chain_id   | BLOCKCHAIN_CHAIN_ID    | testnet | true| furya chain id
+| blockchain.client_home   | BLOCKCHAIN_CLIENT_HOME    | ~/.furyacli | true | furyacli home directory
+| blockchain.keyring_backend   | BLOCKCHAIN_KEYRING_BACKEND    | test | true | furyacli keyring backend
+| blockchain.keyring_prompt_input   | BLOCKCHAIN_KEYRING_PROMPT_INPUT    | | false | furyacli keyring prompt input
 | blockchain.gas   | BLOCKCHAIN_GAS    | 10 | false | gas amount
-| blockchain.fee   | BLOCKCHAIN_FEE    | 1udec | false | transaction fee
+| blockchain.fee   | BLOCKCHAIN_FEE    | 1ufury | false | transaction fee
 | blockchain.initial_stake | BLOCKCHAIN_INITIAL_STAKE | 1000000 | true | stakes count to be sent, 1DEC = 1000000 uDEC
 | referral.threshold_pdv   | REFERRAL_THRESHOLD_PDV   | 100 | true | how many uPDV a user should obtain to get a referral reward
 | referral.threshold_days   | REFERRAL_THRESHOLD_DAYS   | 30 | true | how many days a user should wait to get a referral reward
-| supply.native_node | SUPPLY_NATIVE_NODE | https://zeus.testnet.decentr.xyz | true | native rest node address
+| supply.native_node | SUPPLY_NATIVE_NODE | https://zeus.testnet.furya.xyz | true | native rest node address
 | supply.erc20_node | SUPPLY_ERC20_NODE | | true | erc20 node address
 | log.level   | LOG_LEVEL   | info | false | level of logger (debug,info,warn,error)
 | sentry.dsn    | SENTRY_DSN    | | sentry dsn
@@ -79,16 +79,16 @@ go run cmd/vulcan/main.go \
 | postgres.max_open_connections    | POSTGRES_MAX_OPEN_CONNECTIONS    | 0 | true | postgres maximal open connections count, 0 means unlimited
 | postgres.max_idle_connections    | POSTGRES_MAX_IDLE_CONNECTIONS    | 5 | true | postgres maximal idle connections count
 | postgres.migrations    | POSTGRES_MIGRATIONS    | /migrations/postgres | true | postgres migrations directory
-| blockchain.node   | BLOCKCHAIN_NODE    | http://zeus.mainnet.decentr.xyz:26657 | true | decentr node address
-| blockchain.from   | BLOCKCHAIN_FROM    | | true | decentr account name to send stakes
-| blockchain.tx_memo   | BLOCKCHAIN_TX_MEMO    | | false | decentr tx's memo
-| blockchain.chain_id   | BLOCKCHAIN_CHAIN_ID    | testnet | true| decentr chain id
-| blockchain.client_home   | BLOCKCHAIN_CLIENT_HOME    | ~/.decentrcli | true | decentrcli home directory
-| blockchain.keyring_backend   | BLOCKCHAIN_KEYRING_BACKEND    | test | true | decentrcli keyring backend
-| blockchain.keyring_prompt_input   | BLOCKCHAIN_KEYRING_PROMPT_INPUT    | | false | decentrcli keyring prompt input
+| blockchain.node   | BLOCKCHAIN_NODE    | http://zeus.mainnet.furya.xyz:26657 | true | furya node address
+| blockchain.from   | BLOCKCHAIN_FROM    | | true | furya account name to send stakes
+| blockchain.tx_memo   | BLOCKCHAIN_TX_MEMO    | | false | furya tx's memo
+| blockchain.chain_id   | BLOCKCHAIN_CHAIN_ID    | testnet | true| furya chain id
+| blockchain.client_home   | BLOCKCHAIN_CLIENT_HOME    | ~/.furyacli | true | furyacli home directory
+| blockchain.keyring_backend   | BLOCKCHAIN_KEYRING_BACKEND    | test | true | furyacli keyring backend
+| blockchain.keyring_prompt_input   | BLOCKCHAIN_KEYRING_PROMPT_INPUT    | | false | furyacli keyring prompt input
 | blockchain.gas   | BLOCKCHAIN_GAS    | 10 | false | gas amount
-| blockchain.fee   | BLOCKCHAIN_FEE    | 1udec | false | transaction fee
-| blockchain.grpc_node_url   | BLOCKCHAIN_GRPC_NODE_URL    | hera.mainnet.decentr.xyz:9090 | false | GRPC endpoint url
+| blockchain.fee   | BLOCKCHAIN_FEE    | 1ufury | false | transaction fee
+| blockchain.grpc_node_url   | BLOCKCHAIN_GRPC_NODE_URL    | hera.mainnet.furya.xyz:9090 | false | GRPC endpoint url
 | referral.threshold_pdv   | REFERRAL_THRESHOLD_PDV   | 0.000100 | true | how many uPDV a user should obtain to get a referral reward
 | referral.threshold_days   | REFERRAL_THRESHOLD_DAYS   | 30 | true | how many days a user should wait to get a referral reward
 | log.level   | LOG_LEVEL   | info | false | level of logger (debug,info,warn,error)

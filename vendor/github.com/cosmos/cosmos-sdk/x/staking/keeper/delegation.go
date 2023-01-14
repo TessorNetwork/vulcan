@@ -421,7 +421,7 @@ func (k Keeper) SetRedelegationEntry(ctx sdk.Context,
 	delegatorAddr sdk.AccAddress, validatorSrcAddr,
 	validatorDstAddr sdk.ValAddress, creationHeight int64,
 	minTime time.Time, balance sdk.Int,
-	sharesSrc, sharesDst sdk.Dec) types.Redelegation {
+	sharesSrc, sharesDst sdk.Fur) types.Redelegation {
 	red, found := k.GetRedelegation(ctx, delegatorAddr, validatorSrcAddr, validatorDstAddr)
 	if found {
 		red.AddEntry(creationHeight, minTime, balance, sharesDst)
@@ -547,7 +547,7 @@ func (k Keeper) DequeueAllMatureRedelegationQueue(ctx sdk.Context, currTime time
 func (k Keeper) Delegate(
 	ctx sdk.Context, delAddr sdk.AccAddress, bondAmt sdk.Int, tokenSrc types.BondStatus,
 	validator types.Validator, subtractAccount bool,
-) (newShares sdk.Dec, err error) {
+) (newShares sdk.Fur, err error) {
 	// In some situations, the exchange rate becomes invalid, e.g. if
 	// Validator loses all tokens due to slashing. In this case,
 	// make all future delegations invalid.
@@ -594,7 +594,7 @@ func (k Keeper) Delegate(
 
 		coins := sdk.NewCoins(sdk.NewCoin(k.BondDenom(ctx), bondAmt))
 		if err := k.bankKeeper.DelegateCoinsFromAccountToModule(ctx, delegatorAddress, sendName, coins); err != nil {
-			return sdk.Dec{}, err
+			return sdk.Fur{}, err
 		}
 	} else {
 		// potentially transfer tokens between pools, if
@@ -628,7 +628,7 @@ func (k Keeper) Delegate(
 
 // Unbond a particular delegation and perform associated store operations.
 func (k Keeper) Unbond(
-	ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValAddress, shares sdk.Dec,
+	ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValAddress, shares sdk.Fur,
 ) (amount sdk.Int, err error) {
 	// check if a delegation object exists in the store
 	delegation, found := k.GetDelegation(ctx, delAddr, valAddr)
@@ -723,7 +723,7 @@ func (k Keeper) getBeginInfo(
 // an unbonding object and inserting it into the unbonding queue which will be
 // processed during the staking EndBlocker.
 func (k Keeper) Undelegate(
-	ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValAddress, sharesAmount sdk.Dec,
+	ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValAddress, sharesAmount sdk.Fur,
 ) (time.Time, error) {
 	validator, found := k.GetValidator(ctx, valAddr)
 	if !found {
@@ -802,7 +802,7 @@ func (k Keeper) CompleteUnbonding(ctx sdk.Context, delAddr sdk.AccAddress, valAd
 
 // begin unbonding / redelegation; create a redelegation record
 func (k Keeper) BeginRedelegation(
-	ctx sdk.Context, delAddr sdk.AccAddress, valSrcAddr, valDstAddr sdk.ValAddress, sharesAmount sdk.Dec,
+	ctx sdk.Context, delAddr sdk.AccAddress, valSrcAddr, valDstAddr sdk.ValAddress, sharesAmount sdk.Fur,
 ) (completionTime time.Time, err error) {
 	if bytes.Equal(valSrcAddr, valDstAddr) {
 		return time.Time{}, types.ErrSelfRedelegation
@@ -900,7 +900,7 @@ func (k Keeper) CompleteRedelegation(
 // amount of respective shares is returned, otherwise an error is returned.
 func (k Keeper) ValidateUnbondAmount(
 	ctx sdk.Context, delAddr sdk.AccAddress, valAddr sdk.ValAddress, amt sdk.Int,
-) (shares sdk.Dec, err error) {
+) (shares sdk.Fur, err error) {
 	validator, found := k.GetValidator(ctx, valAddr)
 	if !found {
 		return shares, types.ErrNoValidatorFound

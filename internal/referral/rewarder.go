@@ -10,10 +10,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	log "github.com/sirupsen/logrus"
 
-	tokentypes "github.com/Decentr-net/decentr/x/token/types"
+	tokentypes "github.com/TessorNetwork/furya/x/token/types"
 
-	"github.com/Decentr-net/vulcan/internal/blockchain"
-	"github.com/Decentr-net/vulcan/internal/storage"
+	"github.com/TessorNetwork/vulcan/internal/blockchain"
+	"github.com/TessorNetwork/vulcan/internal/storage"
 )
 
 const denominator = 6
@@ -34,7 +34,7 @@ type RewardLevel struct {
 // Config ...
 // swagger:model
 type Config struct {
-	ThresholdPDV       sdk.Dec       `json:"thresholdPDV"`
+	ThresholdPDV       sdk.Fur       `json:"thresholdPDV"`
 	ThresholdDays      int           `json:"thresholdDays"`
 	ReceiverReward     sdk.Int       `json:"receiverReward"`
 	SenderBonuses      []Bonus       `json:"senderBonus"`
@@ -42,7 +42,7 @@ type Config struct {
 }
 
 // NewConfig creates a new instance of Config.
-func NewConfig(thresholdPDV sdk.Dec, thresholdDays int) Config {
+func NewConfig(thresholdPDV sdk.Fur, thresholdDays int) Config {
 	intPrt := func(val int) *int {
 		return &val
 	}
@@ -161,7 +161,7 @@ func (r *Rewarder) do(ctx context.Context) {
 			continue
 		}
 
-		if resp.Balance.Dec.GT(r.rc.ThresholdPDV) {
+		if resp.Balance.Fur.GT(r.rc.ThresholdPDV) {
 			count, err := r.storage.GetConfirmedReferralTrackingCount(ctx, ref.Sender)
 			if err != nil {
 				logger.WithError(err).Error("failed to get confirmed referrals count")
@@ -169,7 +169,7 @@ func (r *Rewarder) do(ctx context.Context) {
 			}
 			r.reward(ctx, ref, count+1)
 		} else {
-			logger.Infof("balance %d less than threshold %d", resp.Balance.Dec, r.rc.ThresholdPDV)
+			logger.Infof("balance %d less than threshold %d", resp.Balance.Fur, r.rc.ThresholdPDV)
 		}
 	}
 }
@@ -181,9 +181,9 @@ func (r *Rewarder) reward(ctx context.Context, ref *storage.ReferralTracking, co
 	senderBonus := r.rc.GetSenderBonus(confirmedReferralsCount)
 	totalSenderReward := senderReward.Add(senderBonus)
 
-	memo := "Decentr referral reward"
+	memo := "Furya referral reward"
 	if !senderBonus.IsZero() {
-		memo = "Decentr referral reward with bonus"
+		memo = "Furya referral reward with bonus"
 	}
 
 	if err := r.storage.InTx(ctx, func(s storage.Storage) error {

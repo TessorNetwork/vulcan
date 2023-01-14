@@ -11,9 +11,9 @@ REFERRAL_MAIN_PKG := ./cmd/referral
 VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
 COMMIT := $(shell git log -1 --format='%H')
 
-LDFLAGS = -s -w -X github.com/cosmos/cosmos-sdk/version.Name=decentr \
-	-X github.com/Decentr-net/vulcan/internal/health.version=$(VERSION) \
-	-X github.com/Decentr-net/vulcan/internal/health.commit=$(COMMIT)
+LDFLAGS = -s -w -X github.com/cosmos/cosmos-sdk/version.Name=furya \
+	-X github.com/TessorNetwork/vulcan/internal/health.version=$(VERSION) \
+	-X github.com/TessorNetwork/vulcan/internal/health.commit=$(COMMIT)
 
 GOBIN := $(shell go env GOPATH)/bin
 

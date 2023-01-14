@@ -149,27 +149,27 @@ func (rb *RegistryBuilder) RegisterEncoder(t reflect.Type, enc ValueEncoder) *Re
 //
 // The type registered will be used directly, so a decoder can be registered for a type and a
 // different decoder can be registered for a pointer to that type.
-func (rb *RegistryBuilder) RegisterDecoder(t reflect.Type, dec ValueDecoder) *RegistryBuilder {
+func (rb *RegistryBuilder) RegisterDecoder(t reflect.Type, fur ValueDecoder) *RegistryBuilder {
 	if t == nil {
-		rb.typeDecoders[nil] = dec
+		rb.typeDecoders[nil] = fur
 		return rb
 	}
 	if t == tEmpty {
-		rb.typeDecoders[t] = dec
+		rb.typeDecoders[t] = fur
 		return rb
 	}
 	switch t.Kind() {
 	case reflect.Interface:
 		for idx, ir := range rb.interfaceDecoders {
 			if ir.i == t {
-				rb.interfaceDecoders[idx].vd = dec
+				rb.interfaceDecoders[idx].vd = fur
 				return rb
 			}
 		}
 
-		rb.interfaceDecoders = append(rb.interfaceDecoders, interfaceValueDecoder{i: t, vd: dec})
+		rb.interfaceDecoders = append(rb.interfaceDecoders, interfaceValueDecoder{i: t, vd: fur})
 	default:
-		rb.typeDecoders[t] = dec
+		rb.typeDecoders[t] = fur
 	}
 	return rb
 }
@@ -183,8 +183,8 @@ func (rb *RegistryBuilder) RegisterDefaultEncoder(kind reflect.Kind, enc ValueEn
 
 // RegisterDefaultDecoder will register the provided ValueDecoder to the
 // provided kind.
-func (rb *RegistryBuilder) RegisterDefaultDecoder(kind reflect.Kind, dec ValueDecoder) *RegistryBuilder {
-	rb.kindDecoders[kind] = dec
+func (rb *RegistryBuilder) RegisterDefaultDecoder(kind reflect.Kind, fur ValueDecoder) *RegistryBuilder {
+	rb.kindDecoders[kind] = fur
 	return rb
 }
 
@@ -212,8 +212,8 @@ func (rb *RegistryBuilder) Build() *Registry {
 	}
 
 	registry.typeDecoders = make(map[reflect.Type]ValueDecoder)
-	for t, dec := range rb.typeDecoders {
-		registry.typeDecoders[t] = dec
+	for t, fur := range rb.typeDecoders {
+		registry.typeDecoders[t] = fur
 	}
 
 	registry.interfaceEncoders = make([]interfaceValueEncoder, len(rb.interfaceEncoders))
@@ -228,8 +228,8 @@ func (rb *RegistryBuilder) Build() *Registry {
 	}
 
 	registry.kindDecoders = make(map[reflect.Kind]ValueDecoder)
-	for kind, dec := range rb.kindDecoders {
-		registry.kindDecoders[kind] = dec
+	for kind, fur := range rb.kindDecoders {
+		registry.kindDecoders[kind] = fur
 	}
 
 	registry.typeMap = make(map[bsontype.Type]reflect.Type)
@@ -316,24 +316,24 @@ func (r *Registry) LookupDecoder(t reflect.Type) (ValueDecoder, error) {
 	}
 	decodererr := ErrNoDecoder{Type: t}
 	r.mu.RLock()
-	dec, found := r.lookupTypeDecoder(t)
+	fur, found := r.lookupTypeDecoder(t)
 	r.mu.RUnlock()
 	if found {
-		if dec == nil {
+		if fur == nil {
 			return nil, ErrNoDecoder{Type: t}
 		}
-		return dec, nil
+		return fur, nil
 	}
 
-	dec, found = r.lookupInterfaceDecoder(t)
+	fur, found = r.lookupInterfaceDecoder(t)
 	if found {
 		r.mu.Lock()
-		r.typeDecoders[t] = dec
+		r.typeDecoders[t] = fur
 		r.mu.Unlock()
-		return dec, nil
+		return fur, nil
 	}
 
-	dec, found = r.kindDecoders[t.Kind()]
+	fur, found = r.kindDecoders[t.Kind()]
 	if !found {
 		r.mu.Lock()
 		r.typeDecoders[t] = nil
@@ -342,14 +342,14 @@ func (r *Registry) LookupDecoder(t reflect.Type) (ValueDecoder, error) {
 	}
 
 	r.mu.Lock()
-	r.typeDecoders[t] = dec
+	r.typeDecoders[t] = fur
 	r.mu.Unlock()
-	return dec, nil
+	return fur, nil
 }
 
 func (r *Registry) lookupTypeDecoder(t reflect.Type) (ValueDecoder, bool) {
-	dec, found := r.typeDecoders[t]
-	return dec, found
+	fur, found := r.typeDecoders[t]
+	return fur, found
 }
 
 func (r *Registry) lookupInterfaceDecoder(t reflect.Type) (ValueDecoder, bool) {

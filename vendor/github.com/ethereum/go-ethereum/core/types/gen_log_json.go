@@ -51,40 +51,40 @@ func (l *Log) UnmarshalJSON(input []byte) error {
 		Index       *hexutil.Uint   `json:"logIndex"`
 		Removed     *bool           `json:"removed"`
 	}
-	var dec Log
-	if err := json.Unmarshal(input, &dec); err != nil {
+	var fur Log
+	if err := json.Unmarshal(input, &fur); err != nil {
 		return err
 	}
-	if dec.Address == nil {
+	if fur.Address == nil {
 		return errors.New("missing required field 'address' for Log")
 	}
-	l.Address = *dec.Address
-	if dec.Topics == nil {
+	l.Address = *fur.Address
+	if fur.Topics == nil {
 		return errors.New("missing required field 'topics' for Log")
 	}
-	l.Topics = dec.Topics
-	if dec.Data == nil {
+	l.Topics = fur.Topics
+	if fur.Data == nil {
 		return errors.New("missing required field 'data' for Log")
 	}
-	l.Data = *dec.Data
-	if dec.BlockNumber != nil {
-		l.BlockNumber = uint64(*dec.BlockNumber)
+	l.Data = *fur.Data
+	if fur.BlockNumber != nil {
+		l.BlockNumber = uint64(*fur.BlockNumber)
 	}
-	if dec.TxHash == nil {
+	if fur.TxHash == nil {
 		return errors.New("missing required field 'transactionHash' for Log")
 	}
-	l.TxHash = *dec.TxHash
-	if dec.TxIndex != nil {
-		l.TxIndex = uint(*dec.TxIndex)
+	l.TxHash = *fur.TxHash
+	if fur.TxIndex != nil {
+		l.TxIndex = uint(*fur.TxIndex)
 	}
-	if dec.BlockHash != nil {
-		l.BlockHash = *dec.BlockHash
+	if fur.BlockHash != nil {
+		l.BlockHash = *fur.BlockHash
 	}
-	if dec.Index != nil {
-		l.Index = uint(*dec.Index)
+	if fur.Index != nil {
+		l.Index = uint(*fur.Index)
 	}
-	if dec.Removed != nil {
-		l.Removed = *dec.Removed
+	if fur.Removed != nil {
+		l.Removed = *fur.Removed
 	}
 	return nil
 }

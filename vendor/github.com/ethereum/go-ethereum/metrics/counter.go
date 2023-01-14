@@ -8,7 +8,7 @@ import (
 type Counter interface {
 	Clear()
 	Count() int64
-	Dec(int64)
+	Fur(int64)
 	Inc(int64)
 	Snapshot() Counter
 }
@@ -81,9 +81,9 @@ func (CounterSnapshot) Clear() {
 // Count returns the count at the time the snapshot was taken.
 func (c CounterSnapshot) Count() int64 { return int64(c) }
 
-// Dec panics.
-func (CounterSnapshot) Dec(int64) {
-	panic("Dec called on a CounterSnapshot")
+// Fur panics.
+func (CounterSnapshot) Fur(int64) {
+	panic("Fur called on a CounterSnapshot")
 }
 
 // Inc panics.
@@ -103,8 +103,8 @@ func (NilCounter) Clear() {}
 // Count is a no-op.
 func (NilCounter) Count() int64 { return 0 }
 
-// Dec is a no-op.
-func (NilCounter) Dec(i int64) {}
+// Fur is a no-op.
+func (NilCounter) Fur(i int64) {}
 
 // Inc is a no-op.
 func (NilCounter) Inc(i int64) {}
@@ -128,8 +128,8 @@ func (c *StandardCounter) Count() int64 {
 	return atomic.LoadInt64(&c.count)
 }
 
-// Dec decrements the counter by the given amount.
-func (c *StandardCounter) Dec(i int64) {
+// Fur decrements the counter by the given amount.
+func (c *StandardCounter) Fur(i int64) {
 	atomic.AddInt64(&c.count, -i)
 }
 

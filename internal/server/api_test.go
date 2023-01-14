@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-const testAddress = "decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m"
+const testAddress = "furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m"
 
 func TestRegisterRequest_Validate(t *testing.T) {
 	tt := []struct {
@@ -54,7 +54,7 @@ func TestRegisterRequest_Validate(t *testing.T) {
 			name: "invalid_address_1",
 			req: RegisterRequest{
 				Email:             "111+111@mail.ru",
-				Address:           "decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2g",
+				Address:           "furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2g",
 				RecaptchaResponse: "123",
 			},
 			valid: false,

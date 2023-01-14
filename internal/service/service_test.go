@@ -14,18 +14,18 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/Decentr-net/vulcan/internal/blockchain"
-	blockchainmock "github.com/Decentr-net/vulcan/internal/blockchain/mock"
-	mailmock "github.com/Decentr-net/vulcan/internal/mail/mock"
-	"github.com/Decentr-net/vulcan/internal/storage"
-	storagemock "github.com/Decentr-net/vulcan/internal/storage/mock"
+	"github.com/TessorNetwork/vulcan/internal/blockchain"
+	blockchainmock "github.com/TessorNetwork/vulcan/internal/blockchain/mock"
+	mailmock "github.com/TessorNetwork/vulcan/internal/mail/mock"
+	"github.com/TessorNetwork/vulcan/internal/storage"
+	storagemock "github.com/TessorNetwork/vulcan/internal/storage/mock"
 )
 
 var (
 	errTest     = fmt.Errorf("test")
 	testOwner   = "9790d13a4778f68308977117dd470bb4"
-	testAddress = "decentr1vg085ra5hw8mx5rrheqf8fruks0xv4urqkuqga"
-	testEmail   = "decentr@decentr.xyz"
+	testAddress = "furya1vg085ra5hw8mx5rrheqf8fruks0xv4urqkuqga"
+	testEmail   = "furya@furya.xyz"
 	testCode    = "1234"
 
 	initialStakes = sdk.NewInt(100)

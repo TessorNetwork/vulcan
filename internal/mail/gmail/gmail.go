@@ -11,7 +11,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/Decentr-net/vulcan/internal/mail"
+	"github.com/TessorNetwork/vulcan/internal/mail"
 )
 
 // nolint:gochecknoglobals

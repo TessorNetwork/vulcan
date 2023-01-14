@@ -6,7 +6,7 @@ import "sync/atomic"
 type Gauge interface {
 	Snapshot() Gauge
 	Update(int64)
-	Dec(int64)
+	Fur(int64)
 	Inc(int64)
 	Value() int64
 }
@@ -67,9 +67,9 @@ func (GaugeSnapshot) Update(int64) {
 	panic("Update called on a GaugeSnapshot")
 }
 
-// Dec panics.
-func (GaugeSnapshot) Dec(int64) {
-	panic("Dec called on a GaugeSnapshot")
+// Fur panics.
+func (GaugeSnapshot) Fur(int64) {
+	panic("Fur called on a GaugeSnapshot")
 }
 
 // Inc panics.
@@ -89,8 +89,8 @@ func (NilGauge) Snapshot() Gauge { return NilGauge{} }
 // Update is a no-op.
 func (NilGauge) Update(v int64) {}
 
-// Dec is a no-op.
-func (NilGauge) Dec(i int64) {}
+// Fur is a no-op.
+func (NilGauge) Fur(i int64) {}
 
 // Inc is a no-op.
 func (NilGauge) Inc(i int64) {}
@@ -119,8 +119,8 @@ func (g *StandardGauge) Value() int64 {
 	return atomic.LoadInt64(&g.value)
 }
 
-// Dec decrements the gauge's current value by the given amount.
-func (g *StandardGauge) Dec(i int64) {
+// Fur decrements the gauge's current value by the given amount.
+func (g *StandardGauge) Fur(i int64) {
 	atomic.AddInt64(&g.value, -i)
 }
 
@@ -147,9 +147,9 @@ func (FunctionalGauge) Update(int64) {
 	panic("Update called on a FunctionalGauge")
 }
 
-// Dec panics.
-func (FunctionalGauge) Dec(int64) {
-	panic("Dec called on a FunctionalGauge")
+// Fur panics.
+func (FunctionalGauge) Fur(int64) {
+	panic("Fur called on a FunctionalGauge")
 }
 
 // Inc panics.

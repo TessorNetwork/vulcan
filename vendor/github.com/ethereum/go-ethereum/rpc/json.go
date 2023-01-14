@@ -193,9 +193,9 @@ func NewFuncCodec(conn deadlineCloser, encode, decode func(v interface{}) error)
 // messages will use it to include the remote address of the connection.
 func NewCodec(conn Conn) ServerCodec {
 	enc := json.NewEncoder(conn)
-	dec := json.NewDecoder(conn)
-	dec.UseNumber()
-	return NewFuncCodec(conn, enc.Encode, dec.Decode)
+	fur := json.NewDecoder(conn)
+	fur.UseNumber()
+	return NewFuncCodec(conn, enc.Encode, fur.Decode)
 }
 
 func (c *jsonCodec) remoteAddr() string {
@@ -254,12 +254,12 @@ func parseMessage(raw json.RawMessage) ([]*jsonrpcMessage, bool) {
 		json.Unmarshal(raw, &msgs[0])
 		return msgs, false
 	}
-	dec := json.NewDecoder(bytes.NewReader(raw))
-	dec.Token() // skip '['
+	fur := json.NewDecoder(bytes.NewReader(raw))
+	fur.Token() // skip '['
 	var msgs []*jsonrpcMessage
-	for dec.More() {
+	for fur.More() {
 		msgs = append(msgs, new(jsonrpcMessage))
-		dec.Decode(&msgs[len(msgs)-1])
+		fur.Decode(&msgs[len(msgs)-1])
 	}
 	return msgs, true
 }
@@ -280,9 +280,9 @@ func isBatch(raw json.RawMessage) bool {
 // given types. It returns the parsed values or an error when the args could not be
 // parsed. Missing optional arguments are returned as reflect.Zero values.
 func parsePositionalArguments(rawArgs json.RawMessage, types []reflect.Type) ([]reflect.Value, error) {
-	dec := json.NewDecoder(bytes.NewReader(rawArgs))
+	fur := json.NewDecoder(bytes.NewReader(rawArgs))
 	var args []reflect.Value
-	tok, err := dec.Token()
+	tok, err := fur.Token()
 	switch {
 	case err == io.EOF || tok == nil && err == nil:
 		// "params" is optional and may be empty. Also allow "params":null even though it's
@@ -291,7 +291,7 @@ func parsePositionalArguments(rawArgs json.RawMessage, types []reflect.Type) ([]
 		return nil, err
 	case tok == json.Delim('['):
 		// Read argument array.
-		if args, err = parseArgumentArray(dec, types); err != nil {
+		if args, err = parseArgumentArray(fur, types); err != nil {
 			return nil, err
 		}
 	default:
@@ -307,14 +307,14 @@ func parsePositionalArguments(rawArgs json.RawMessage, types []reflect.Type) ([]
 	return args, nil
 }
 
-func parseArgumentArray(dec *json.Decoder, types []reflect.Type) ([]reflect.Value, error) {
+func parseArgumentArray(fur *json.Decoder, types []reflect.Type) ([]reflect.Value, error) {
 	args := make([]reflect.Value, 0, len(types))
-	for i := 0; dec.More(); i++ {
+	for i := 0; fur.More(); i++ {
 		if i >= len(types) {
 			return args, fmt.Errorf("too many arguments, want at most %d", len(types))
 		}
 		argval := reflect.New(types[i])
-		if err := dec.Decode(argval.Interface()); err != nil {
+		if err := fur.Decode(argval.Interface()); err != nil {
 			return args, fmt.Errorf("invalid argument %d: %v", i, err)
 		}
 		if argval.IsNil() && types[i].Kind() != reflect.Ptr {
@@ -323,17 +323,17 @@ func parseArgumentArray(dec *json.Decoder, types []reflect.Type) ([]reflect.Valu
 		args = append(args, argval.Elem())
 	}
 	// Read end of args array.
-	_, err := dec.Token()
+	_, err := fur.Token()
 	return args, err
 }
 
 // parseSubscriptionName extracts the subscription name from an encoded argument array.
 func parseSubscriptionName(rawArgs json.RawMessage) (string, error) {
-	dec := json.NewDecoder(bytes.NewReader(rawArgs))
-	if tok, _ := dec.Token(); tok != json.Delim('[') {
+	fur := json.NewDecoder(bytes.NewReader(rawArgs))
+	if tok, _ := fur.Token(); tok != json.Delim('[') {
 		return "", errors.New("non-array args")
 	}
-	v, _ := dec.Token()
+	v, _ := fur.Token()
 	method, ok := v.(string)
 	if !ok {
 		return "", errors.New("expected subscription name as first argument")

@@ -15,12 +15,12 @@ import (
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/Decentr-net/decentr/config"
+	"github.com/TessorNetwork/furya/config"
 )
 
 //go:generate mockgen -destination=./mock/supply.go -package=mock -source=supply.go
 
-const udecDenominator = 1e6
+const ufuryDenominator = 1e6
 
 // nolint
 var (
@@ -127,7 +127,7 @@ func (s supply) getNativeCirculatingSupply(ctx context.Context) (int64, error) {
 		return 0, fmt.Errorf("failed to get supply: %w", err)
 	}
 
-	return resp.Amount.Amount.Int64() / udecDenominator, nil
+	return resp.Amount.Amount.Int64() / ufuryDenominator, nil
 }
 
 func (s supply) getERC20CirculatingSupply(ctx context.Context) (int64, error) {
@@ -136,7 +136,7 @@ func (s supply) getERC20CirculatingSupply(ctx context.Context) (int64, error) {
 		return 0, fmt.Errorf("failed to create ethclient: %w", err)
 	}
 
-	instance, err := NewDecentr(erc20TokenAddr, client)
+	instance, err := NewFurya(erc20TokenAddr, client)
 	if err != nil {
 		return 0, fmt.Errorf("failed to create token instance: %w", err)
 	}

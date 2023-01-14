@@ -13,12 +13,12 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/Decentr-net/go-api/test"
-	"github.com/Decentr-net/vulcan/internal/referral"
-	"github.com/Decentr-net/vulcan/internal/service"
-	servicemock "github.com/Decentr-net/vulcan/internal/service/mock"
-	"github.com/Decentr-net/vulcan/internal/storage"
-	supplymock "github.com/Decentr-net/vulcan/internal/supply/mock"
+	"github.com/TessorNetwork/go-api/test"
+	"github.com/TessorNetwork/vulcan/internal/referral"
+	"github.com/TessorNetwork/vulcan/internal/service"
+	servicemock "github.com/TessorNetwork/vulcan/internal/service/mock"
+	"github.com/TessorNetwork/vulcan/internal/storage"
+	supplymock "github.com/TessorNetwork/vulcan/internal/supply/mock"
 )
 
 var (
@@ -37,9 +37,9 @@ func Test_Register(t *testing.T) {
 	}{
 		{
 			name: "success",
-			body: []byte(`{"email":"decentr@decentr.xyz", "address":"decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m"}`),
+			body: []byte(`{"email":"furya@furya.xyz", "address":"furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m"}`),
 			mockFn: func(srv *servicemock.MockService) {
-				srv.EXPECT().Register(gomock.Not(gomock.Nil()), "decentr@decentr.xyz", "decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", nil).Return(nil)
+				srv.EXPECT().Register(gomock.Not(gomock.Nil()), "furya@furya.xyz", "furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", nil).Return(nil)
 			},
 			rcode: http.StatusOK,
 			rdata: `{}`,
@@ -47,28 +47,28 @@ func Test_Register(t *testing.T) {
 		},
 		{
 			name:  "invalid email",
-			body:  []byte(`{"email":"decentrdecentr.xyz", "address":"decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m"}`),
+			body:  []byte(`{"email":"furyafurya.xyz", "address":"furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m"}`),
 			rcode: http.StatusBadRequest,
 			rdata: `{"error": "invalid request: invalid email"}`,
 			rlog:  "",
 		},
 		{
 			name:  "invalid address",
-			body:  []byte(`{"email":"decentr@decentr.xyz", "address":"decentr1vg085ra5hw8mx5rrheqf8fruks0xv4urqkuqg"}`),
+			body:  []byte(`{"email":"furya@furya.xyz", "address":"furya1vg085ra5hw8mx5rrheqf8fruks0xv4urqkuqg"}`),
 			rcode: http.StatusBadRequest,
 			rdata: `{"error": "invalid request: invalid address"}`,
 			rlog:  "",
 		},
 		{
 			name:  "invalid recaptcha",
-			body:  []byte(`{"email":"decentr@decentr.xyz", "address":"decentr1vg085ra5hw8mx5rrheqf8fruks0xv4urqkuqg", "referralCode": "abcdef12", "recaptchaResponse": ""}`),
+			body:  []byte(`{"email":"furya@furya.xyz", "address":"furya1vg085ra5hw8mx5rrheqf8fruks0xv4urqkuqg", "referralCode": "abcdef12", "recaptchaResponse": ""}`),
 			rcode: http.StatusBadRequest,
 			rdata: `{"error": "invalid request: invalid address"}`,
 			rlog:  "",
 		},
 		{
 			name: "captcha isn't passed",
-			body: []byte(`{"email":"decentr@decentr.xyz", "address":"decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", "referralCode": "abcdef12", "recaptchaResponse": "213"}`),
+			body: []byte(`{"email":"furya@furya.xyz", "address":"furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", "referralCode": "abcdef12", "recaptchaResponse": "213"}`),
 			mockFn: func(srv *servicemock.MockService) {
 				srv.EXPECT().CheckRecaptcha(gomock.Not(gomock.Nil()), "register", "213").Return(service.ErrRecaptcha)
 			},
@@ -78,7 +78,7 @@ func Test_Register(t *testing.T) {
 		},
 		{
 			name: "captcha error",
-			body: []byte(`{"email":"decentr@decentr.xyz", "address":"decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", "referralCode": "abcdef12", "recaptchaResponse": "213"}`),
+			body: []byte(`{"email":"furya@furya.xyz", "address":"furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", "referralCode": "abcdef12", "recaptchaResponse": "213"}`),
 			mockFn: func(srv *servicemock.MockService) {
 				srv.EXPECT().CheckRecaptcha(gomock.Not(gomock.Nil()), "register", "213").Return(errTest)
 			},
@@ -88,9 +88,9 @@ func Test_Register(t *testing.T) {
 		},
 		{
 			name: "already registered",
-			body: []byte(`{"email":"decentr@decentr.xyz", "address":"decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m"}`),
+			body: []byte(`{"email":"furya@furya.xyz", "address":"furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m"}`),
 			mockFn: func(srv *servicemock.MockService) {
-				srv.EXPECT().Register(gomock.Not(gomock.Nil()), "decentr@decentr.xyz", "decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", nil).Return(service.ErrAlreadyExists)
+				srv.EXPECT().Register(gomock.Not(gomock.Nil()), "furya@furya.xyz", "furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", nil).Return(service.ErrAlreadyExists)
 			},
 			rcode: http.StatusConflict,
 			rdata: `{"error": "email or address is already taken"}`,
@@ -98,9 +98,9 @@ func Test_Register(t *testing.T) {
 		},
 		{
 			name: "internal error",
-			body: []byte(`{"email":"decentr@decentr.xyz", "address":"decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m"}`),
+			body: []byte(`{"email":"furya@furya.xyz", "address":"furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m"}`),
 			mockFn: func(srv *servicemock.MockService) {
-				srv.EXPECT().Register(gomock.Not(gomock.Nil()), "decentr@decentr.xyz", "decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", nil).Return(errTest)
+				srv.EXPECT().Register(gomock.Not(gomock.Nil()), "furya@furya.xyz", "furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", nil).Return(errTest)
 			},
 			rcode: http.StatusInternalServerError,
 			rdata: `{"error": "internal error"}`,
@@ -108,11 +108,11 @@ func Test_Register(t *testing.T) {
 		},
 		{
 			name: "referral code",
-			body: []byte(`{"email":"decentr@decentr.xyz", "address":"decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", "referralCode": "abcdef12", "recaptchaResponse": "213"}`),
+			body: []byte(`{"email":"furya@furya.xyz", "address":"furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", "referralCode": "abcdef12", "recaptchaResponse": "213"}`),
 			mockFn: func(srv *servicemock.MockService) {
 				referralCode := "abcdef12"
 				srv.EXPECT().CheckRecaptcha(gomock.Not(gomock.Nil()), "register", "213").Return(nil)
-				srv.EXPECT().Register(gomock.Not(gomock.Nil()), "decentr@decentr.xyz", "decentr18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", &referralCode).Return(nil)
+				srv.EXPECT().Register(gomock.Not(gomock.Nil()), "furya@furya.xyz", "furya18c2phdrfjkggr4afwf3rw4h4xsjvfhh2gl7t4m", &referralCode).Return(nil)
 			},
 			rcode: http.StatusOK,
 			rdata: `{}`,

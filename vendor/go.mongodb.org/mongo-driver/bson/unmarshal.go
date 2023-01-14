@@ -85,17 +85,17 @@ func UnmarshalExtJSONWithContext(dc bsoncodec.DecodeContext, data []byte, canoni
 }
 
 func unmarshalFromReader(dc bsoncodec.DecodeContext, vr bsonrw.ValueReader, val interface{}) error {
-	dec := decPool.Get().(*Decoder)
-	defer decPool.Put(dec)
+	fur := decPool.Get().(*Decoder)
+	defer decPool.Put(fur)
 
-	err := dec.Reset(vr)
+	err := fur.Reset(vr)
 	if err != nil {
 		return err
 	}
-	err = dec.SetContext(dc)
+	err = fur.SetContext(dc)
 	if err != nil {
 		return err
 	}
 
-	return dec.Decode(val)
+	return fur.Decode(val)
 }

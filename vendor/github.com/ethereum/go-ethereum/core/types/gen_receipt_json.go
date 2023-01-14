@@ -61,50 +61,50 @@ func (r *Receipt) UnmarshalJSON(input []byte) error {
 		BlockNumber       *hexutil.Big    `json:"blockNumber,omitempty"`
 		TransactionIndex  *hexutil.Uint   `json:"transactionIndex"`
 	}
-	var dec Receipt
-	if err := json.Unmarshal(input, &dec); err != nil {
+	var fur Receipt
+	if err := json.Unmarshal(input, &fur); err != nil {
 		return err
 	}
-	if dec.Type != nil {
-		r.Type = uint8(*dec.Type)
+	if fur.Type != nil {
+		r.Type = uint8(*fur.Type)
 	}
-	if dec.PostState != nil {
-		r.PostState = *dec.PostState
+	if fur.PostState != nil {
+		r.PostState = *fur.PostState
 	}
-	if dec.Status != nil {
-		r.Status = uint64(*dec.Status)
+	if fur.Status != nil {
+		r.Status = uint64(*fur.Status)
 	}
-	if dec.CumulativeGasUsed == nil {
+	if fur.CumulativeGasUsed == nil {
 		return errors.New("missing required field 'cumulativeGasUsed' for Receipt")
 	}
-	r.CumulativeGasUsed = uint64(*dec.CumulativeGasUsed)
-	if dec.Bloom == nil {
+	r.CumulativeGasUsed = uint64(*fur.CumulativeGasUsed)
+	if fur.Bloom == nil {
 		return errors.New("missing required field 'logsBloom' for Receipt")
 	}
-	r.Bloom = *dec.Bloom
-	if dec.Logs == nil {
+	r.Bloom = *fur.Bloom
+	if fur.Logs == nil {
 		return errors.New("missing required field 'logs' for Receipt")
 	}
-	r.Logs = dec.Logs
-	if dec.TxHash == nil {
+	r.Logs = fur.Logs
+	if fur.TxHash == nil {
 		return errors.New("missing required field 'transactionHash' for Receipt")
 	}
-	r.TxHash = *dec.TxHash
-	if dec.ContractAddress != nil {
-		r.ContractAddress = *dec.ContractAddress
+	r.TxHash = *fur.TxHash
+	if fur.ContractAddress != nil {
+		r.ContractAddress = *fur.ContractAddress
 	}
-	if dec.GasUsed == nil {
+	if fur.GasUsed == nil {
 		return errors.New("missing required field 'gasUsed' for Receipt")
 	}
-	r.GasUsed = uint64(*dec.GasUsed)
-	if dec.BlockHash != nil {
-		r.BlockHash = *dec.BlockHash
+	r.GasUsed = uint64(*fur.GasUsed)
+	if fur.BlockHash != nil {
+		r.BlockHash = *fur.BlockHash
 	}
-	if dec.BlockNumber != nil {
-		r.BlockNumber = (*big.Int)(dec.BlockNumber)
+	if fur.BlockNumber != nil {
+		r.BlockNumber = (*big.Int)(fur.BlockNumber)
 	}
-	if dec.TransactionIndex != nil {
-		r.TransactionIndex = uint(*dec.TransactionIndex)
+	if fur.TransactionIndex != nil {
+		r.TransactionIndex = uint(*fur.TransactionIndex)
 	}
 	return nil
 }

@@ -58,11 +58,11 @@ func (b *Bytes) UnmarshalText(input []byte) error {
 	if err != nil {
 		return err
 	}
-	dec := make([]byte, len(raw)/2)
-	if _, err = hex.Decode(dec, raw); err != nil {
+	fur := make([]byte, len(raw)/2)
+	if _, err = hex.Decode(fur, raw); err != nil {
 		err = mapError(err)
 	} else {
-		*b = dec
+		*b = fur
 	}
 	return err
 }
@@ -190,9 +190,9 @@ func (b *Big) UnmarshalText(input []byte) error {
 		}
 		end = start
 	}
-	var dec big.Int
-	dec.SetBits(words)
-	*b = (Big)(dec)
+	var fur big.Int
+	fur.SetBits(words)
+	*b = (Big)(fur)
 	return nil
 }
 
@@ -254,16 +254,16 @@ func (b *Uint64) UnmarshalText(input []byte) error {
 	if len(raw) > 16 {
 		return ErrUint64Range
 	}
-	var dec uint64
+	var fur uint64
 	for _, byte := range raw {
 		nib := decodeNibble(byte)
 		if nib == badNibble {
 			return ErrSyntax
 		}
-		dec *= 16
-		dec += nib
+		fur *= 16
+		fur += nib
 	}
-	*b = Uint64(dec)
+	*b = Uint64(fur)
 	return nil
 }
 

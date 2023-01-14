@@ -43,7 +43,7 @@ func (k Keeper) AllocateTokens(
 	}
 
 	// calculate fraction votes
-	previousFractionVotes := sdk.NewDec(sumPreviousPrecommitPower).Quo(sdk.NewDec(totalPreviousPower))
+	previousFractionVotes := sdk.NewFur(sumPreviousPrecommitPower).Quo(sdk.NewFur(totalPreviousPower))
 
 	// calculate previous proposer reward
 	baseProposerReward := k.GetBaseProposerReward(ctx)
@@ -90,7 +90,7 @@ func (k Keeper) AllocateTokens(
 
 		// TODO consider microslashing for missing votes.
 		// ref https://github.com/cosmos/cosmos-sdk/issues/2525#issuecomment-430838701
-		powerFraction := sdk.NewDec(vote.Validator.Power).QuoTruncate(sdk.NewDec(totalPreviousPower))
+		powerFraction := sdk.NewFur(vote.Validator.Power).QuoTruncate(sdk.NewFur(totalPreviousPower))
 		reward := feesCollected.MulDecTruncate(voteMultiplier).MulDecTruncate(powerFraction)
 		k.AllocateTokensToValidator(ctx, validator, reward)
 		remaining = remaining.Sub(reward)

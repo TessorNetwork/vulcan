@@ -160,12 +160,12 @@ func (r *Receipt) DecodeRLP(s *rlp.Stream) error {
 		return err
 	case kind == rlp.List:
 		// It's a legacy receipt.
-		var dec receiptRLP
-		if err := s.Decode(&dec); err != nil {
+		var fur receiptRLP
+		if err := s.Decode(&fur); err != nil {
 			return err
 		}
 		r.Type = LegacyTxType
-		return r.setFromRLP(dec)
+		return r.setFromRLP(fur)
 	case kind == rlp.String:
 		// It's an EIP-2718 typed tx receipt.
 		b, err := s.Bytes()
@@ -177,11 +177,11 @@ func (r *Receipt) DecodeRLP(s *rlp.Stream) error {
 		}
 		r.Type = b[0]
 		if r.Type == AccessListTxType || r.Type == DynamicFeeTxType {
-			var dec receiptRLP
-			if err := rlp.DecodeBytes(b[1:], &dec); err != nil {
+			var fur receiptRLP
+			if err := rlp.DecodeBytes(b[1:], &fur); err != nil {
 				return err
 			}
-			return r.setFromRLP(dec)
+			return r.setFromRLP(fur)
 		}
 		return ErrTxTypeNotSupported
 	default:

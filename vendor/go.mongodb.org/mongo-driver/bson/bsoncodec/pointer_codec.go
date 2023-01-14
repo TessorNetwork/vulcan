@@ -89,22 +89,22 @@ func (pc *PointerCodec) DecodeValue(dc DecodeContext, vr bsonrw.ValueReader, val
 	}
 
 	pc.l.RLock()
-	dec, ok := pc.dcache[val.Type()]
+	fur, ok := pc.dcache[val.Type()]
 	pc.l.RUnlock()
 	if ok {
-		if dec == nil {
+		if fur == nil {
 			return ErrNoDecoder{Type: val.Type()}
 		}
-		return dec.DecodeValue(dc, vr, val.Elem())
+		return fur.DecodeValue(dc, vr, val.Elem())
 	}
 
-	dec, err := dc.LookupDecoder(val.Type().Elem())
+	fur, err := dc.LookupDecoder(val.Type().Elem())
 	pc.l.Lock()
-	pc.dcache[val.Type()] = dec
+	pc.dcache[val.Type()] = fur
 	pc.l.Unlock()
 	if err != nil {
 		return err
 	}
 
-	return dec.DecodeValue(dc, vr, val.Elem())
+	return fur.DecodeValue(dc, vr, val.Elem())
 }

@@ -26,16 +26,16 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 
-	"github.com/Decentr-net/go-broadcaster"
-	"github.com/Decentr-net/logrus/sentry"
-	"github.com/Decentr-net/vulcan/internal/blockchain"
-	"github.com/Decentr-net/vulcan/internal/health"
-	"github.com/Decentr-net/vulcan/internal/mail/gmail"
-	"github.com/Decentr-net/vulcan/internal/referral"
-	"github.com/Decentr-net/vulcan/internal/server"
-	"github.com/Decentr-net/vulcan/internal/service"
-	"github.com/Decentr-net/vulcan/internal/storage/postgres"
-	"github.com/Decentr-net/vulcan/internal/supply"
+	"github.com/TessorNetwork/go-broadcaster"
+	"github.com/TessorNetwork/logrus/sentry"
+	"github.com/TessorNetwork/vulcan/internal/blockchain"
+	"github.com/TessorNetwork/vulcan/internal/health"
+	"github.com/TessorNetwork/vulcan/internal/mail/gmail"
+	"github.com/TessorNetwork/vulcan/internal/referral"
+	"github.com/TessorNetwork/vulcan/internal/server"
+	"github.com/TessorNetwork/vulcan/internal/service"
+	"github.com/TessorNetwork/vulcan/internal/storage/postgres"
+	"github.com/TessorNetwork/vulcan/internal/supply"
 )
 
 // nolint:lll,gochecknoglobals
@@ -51,30 +51,30 @@ var opts = struct {
 	PostgresMigrations         string `long:"postgres.migrations" env:"POSTGRES_MIGRATIONS" default:"migrations/postgres" description:"postgres migrations directory"`
 
 	MandrillAPIKey                        string `long:"mandrill.api_key" env:"MANDRILL_API_KEY" description:"mandrillapp.com api key" required:"true"`
-	MandrillVerificationEmailSubject      string `long:"mandrill.verification_email_subject" env:"MANDRILL_VERIFICATION_EMAIL_SUBJECT" default:"decentr.xyz - Verification" description:"subject for verification emails"`
+	MandrillVerificationEmailSubject      string `long:"mandrill.verification_email_subject" env:"MANDRILL_VERIFICATION_EMAIL_SUBJECT" default:"furya.xyz - Verification" description:"subject for verification emails"`
 	MandrillVerificationEmailTemplateName string `long:"mandrill.verification_email_template_name" env:"MANDRILL_VERIFICATION_EMAIL_TEMPLATE_NAME" description:"mandrill's verification template to be sent" required:"true"`
-	MandrillWelcomeEmailSubject           string `long:"mandrill.welcome_email_subject" env:"MANDRILL_WELCOME_EMAIL_SUBJECT" default:"decentr.xyz - Verified" description:"subject for welcome emails"`
+	MandrillWelcomeEmailSubject           string `long:"mandrill.welcome_email_subject" env:"MANDRILL_WELCOME_EMAIL_SUBJECT" default:"furya.xyz - Verified" description:"subject for welcome emails"`
 	MandrillWelcomeEmailTemplateName      string `long:"mandrill.welcome_email_template_name" env:"MANDRILL_WELCOME_EMAIL_TEMPLATE_NAME" description:"mandrill's welcome template to be sent" required:"true"`
-	MandrillFromName                      string `long:"mandrill.from_name" env:"MANDRILL_FROM_NAME" default:"decentr.xyz" description:"name for emails sender"`
-	MandrillFromEmail                     string `long:"mandrill.from_email" env:"MANDRILL_FROM_EMAIL" default:"noreply@decentrdev.com" description:"email for emails sender"`
+	MandrillFromName                      string `long:"mandrill.from_name" env:"MANDRILL_FROM_NAME" default:"furya.xyz" description:"name for emails sender"`
+	MandrillFromEmail                     string `long:"mandrill.from_email" env:"MANDRILL_FROM_EMAIL" default:"noreply@furyadev.com" description:"email for emails sender"`
 
-	GmailVerificationEmailSubject string `long:"gmail.verification_email_subject" env:"GMAIL_VERIFICATION_EMAIL_SUBJECT" default:"Decentr - Verification" description:"subject for verification emails"`
-	GmailWelcomeEmailSubject      string `long:"gmail.welcome_email_subject" env:"GMAIL_WELCOME_EMAIL_SUBJECT" default:"Decentr - Verified" description:"subject for welcome emails"`
-	GmailFromName                 string `long:"gmail.from_name" env:"GMAIL_FROM_NAME" default:"Decentr" description:"name for emails sender"`
-	GmailFromEmail                string `long:"gmail.from_email" env:"GMAIL_FROM_EMAIL" default:"no-reply@decentrdev.com" description:"email for emails sender"`
+	GmailVerificationEmailSubject string `long:"gmail.verification_email_subject" env:"GMAIL_VERIFICATION_EMAIL_SUBJECT" default:"Furya - Verification" description:"subject for verification emails"`
+	GmailWelcomeEmailSubject      string `long:"gmail.welcome_email_subject" env:"GMAIL_WELCOME_EMAIL_SUBJECT" default:"Furya - Verified" description:"subject for welcome emails"`
+	GmailFromName                 string `long:"gmail.from_name" env:"GMAIL_FROM_NAME" default:"Furya" description:"name for emails sender"`
+	GmailFromEmail                string `long:"gmail.from_email" env:"GMAIL_FROM_EMAIL" default:"no-reply@furyadev.com" description:"email for emails sender"`
 	GmailFromPassword             string `long:"gmail.from_password" env:"GMAIL_FROM_PASSWORD" default:"" description:"password for emails sender"`
 	GmailSMTPHost                 string `long:"gmail.smtp_host" env:"GMAIL_SMTP_HOST" default:"smtp.gmail.com" description:"SMTP host"`
 	GmailSMTPPort                 int    `long:"gmail.smtp_port" env:"GMAIL_SMTP_PORT" default:"587" description:"SMTP port"`
 
-	BlockchainNode               string `long:"blockchain.node" env:"BLOCKCHAIN_NODE" default:"http://zeus.testnet.decentr.xyz:26657" description:"decentr node address"`
-	BlockchainFrom               string `long:"blockchain.from" env:"BLOCKCHAIN_FROM" description:"decentr account name to send stakes" required:"true"`
-	BlockchainTxMemo             string `long:"blockchain.tx_memo" env:"BLOCKCHAIN_TX_MEMO" description:"decentr tx's memo'"`
-	BlockchainChainID            string `long:"blockchain.chain_id" env:"BLOCKCHAIN_CHAIN_ID" default:"testnet" description:"decentr chain id"`
-	BlockchainClientHome         string `long:"blockchain.client_home" env:"BLOCKCHAIN_CLIENT_HOME" default:"~/.decentrcli" description:"decentrcli home directory"`
-	BlockchainKeyringBackend     string `long:"blockchain.keyring_backend" env:"BLOCKCHAIN_KEYRING_BACKEND" default:"test" description:"decentrcli keyring backend"`
-	BlockchainKeyringPromptInput string `long:"blockchain.keyring_prompt_input" env:"BLOCKCHAIN_KEYRING_PROMPT_INPUT" description:"decentrcli keyring prompt input"`
+	BlockchainNode               string `long:"blockchain.node" env:"BLOCKCHAIN_NODE" default:"http://zeus.testnet.furya.xyz:26657" description:"furya node address"`
+	BlockchainFrom               string `long:"blockchain.from" env:"BLOCKCHAIN_FROM" description:"furya account name to send stakes" required:"true"`
+	BlockchainTxMemo             string `long:"blockchain.tx_memo" env:"BLOCKCHAIN_TX_MEMO" description:"furya tx's memo'"`
+	BlockchainChainID            string `long:"blockchain.chain_id" env:"BLOCKCHAIN_CHAIN_ID" default:"testnet" description:"furya chain id"`
+	BlockchainClientHome         string `long:"blockchain.client_home" env:"BLOCKCHAIN_CLIENT_HOME" default:"~/.furyacli" description:"furyacli home directory"`
+	BlockchainKeyringBackend     string `long:"blockchain.keyring_backend" env:"BLOCKCHAIN_KEYRING_BACKEND" default:"test" description:"furyacli keyring backend"`
+	BlockchainKeyringPromptInput string `long:"blockchain.keyring_prompt_input" env:"BLOCKCHAIN_KEYRING_PROMPT_INPUT" description:"furyacli keyring prompt input"`
 	BlockchainGas                uint64 `long:"blockchain.gas" env:"BLOCKCHAIN_GAS" default:"1000" description:"gas amount"`
-	BlockchainFee                string `long:"blockchain.fee" env:"BLOCKCHAIN_FEE" default:"5000udec" description:"transaction fee"`
+	BlockchainFee                string `long:"blockchain.fee" env:"BLOCKCHAIN_FEE" default:"5000ufury" description:"transaction fee"`
 
 	LogLevel  string `long:"log.level" env:"LOG_LEVEL" default:"info" description:"Log level" choice:"debug" choice:"info" choice:"warning" choice:"error"`
 	SentryDSN string `long:"sentry.dsn" env:"SENTRY_DSN" description:"sentry dsn"`
@@ -84,7 +84,7 @@ var opts = struct {
 	ReferralThresholdPDV  string `long:"referral.threshold_pdv" env:"REFERRAL_THRESHOLD_PDV" default:"0.000100" description:"how many PDV a user should obtain to get a referral reward'"`
 	ReferralThresholdDays int    `long:"referral.threshold_days" env:"REFERRAL_THRESHOLD_DAYS" default:"30" description:"how many days a user should wait to get a referral reward'"`
 
-	SupplyNativeNode string `long:"supply.native_node" env:"SUPPLY_NATIVE_NODE" default:"https://zeus.testnet.decentr.xyz" description:"native rest node address"`
+	SupplyNativeNode string `long:"supply.native_node" env:"SUPPLY_NATIVE_NODE" default:"https://zeus.testnet.furya.xyz" description:"native rest node address"`
 	SupplyERC20Node  string `long:"supply.erc20_node" env:"SUPPLY_ERC20_NODE" default:"" description:"erc20 node address"`
 
 	SlackHookURL string `long:"slack.hook-url" env:"SLACK_HOOK_URL" description:"slack hook url"`

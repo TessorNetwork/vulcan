@@ -1,4 +1,4 @@
-// Package blockchain contains code for interacting with the decentr blockchain.
+// Package blockchain contains code for interacting with the furya blockchain.
 package blockchain
 
 import (
@@ -9,8 +9,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	"github.com/Decentr-net/decentr/config"
-	"github.com/Decentr-net/go-broadcaster"
+	"github.com/TessorNetwork/furya/config"
+	"github.com/TessorNetwork/go-broadcaster"
 )
 
 //go:generate mockgen -destination=./mock/blockchain.go -package=mock -source=blockchain.go

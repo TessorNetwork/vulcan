@@ -73,11 +73,11 @@ func Decode(input string) ([]byte, error) {
 
 // MustDecode decodes a hex string with 0x prefix. It panics for invalid input.
 func MustDecode(input string) []byte {
-	dec, err := Decode(input)
+	fur, err := Decode(input)
 	if err != nil {
 		panic(err)
 	}
-	return dec
+	return fur
 }
 
 // Encode encodes b as a hex string with 0x prefix.
@@ -94,21 +94,21 @@ func DecodeUint64(input string) (uint64, error) {
 	if err != nil {
 		return 0, err
 	}
-	dec, err := strconv.ParseUint(raw, 16, 64)
+	fur, err := strconv.ParseUint(raw, 16, 64)
 	if err != nil {
 		err = mapError(err)
 	}
-	return dec, err
+	return fur, err
 }
 
 // MustDecodeUint64 decodes a hex string with 0x prefix as a quantity.
 // It panics for invalid input.
 func MustDecodeUint64(input string) uint64 {
-	dec, err := DecodeUint64(input)
+	fur, err := DecodeUint64(input)
 	if err != nil {
 		panic(err)
 	}
-	return dec
+	return fur
 }
 
 // EncodeUint64 encodes i as a hex string with 0x prefix.
@@ -161,18 +161,18 @@ func DecodeBig(input string) (*big.Int, error) {
 		}
 		end = start
 	}
-	dec := new(big.Int).SetBits(words)
-	return dec, nil
+	fur := new(big.Int).SetBits(words)
+	return fur, nil
 }
 
 // MustDecodeBig decodes a hex string with 0x prefix as a quantity.
 // It panics for invalid input.
 func MustDecodeBig(input string) *big.Int {
-	dec, err := DecodeBig(input)
+	fur, err := DecodeBig(input)
 	if err != nil {
 		panic(err)
 	}
-	return dec
+	return fur
 }
 
 // EncodeBig encodes bigint as a hex string with 0x prefix.

@@ -7,7 +7,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/Decentr-net/vulcan/internal/mail"
+	"github.com/TessorNetwork/vulcan/internal/mail"
 
 	"github.com/keighl/mandrill"
 )

@@ -75,70 +75,70 @@ func (h *Header) UnmarshalJSON(input []byte) error {
 		Nonce       *BlockNonce     `json:"nonce"`
 		BaseFee     *hexutil.Big    `json:"baseFeePerGas" rlp:"optional"`
 	}
-	var dec Header
-	if err := json.Unmarshal(input, &dec); err != nil {
+	var fur Header
+	if err := json.Unmarshal(input, &fur); err != nil {
 		return err
 	}
-	if dec.ParentHash == nil {
+	if fur.ParentHash == nil {
 		return errors.New("missing required field 'parentHash' for Header")
 	}
-	h.ParentHash = *dec.ParentHash
-	if dec.UncleHash == nil {
+	h.ParentHash = *fur.ParentHash
+	if fur.UncleHash == nil {
 		return errors.New("missing required field 'sha3Uncles' for Header")
 	}
-	h.UncleHash = *dec.UncleHash
-	if dec.Coinbase == nil {
+	h.UncleHash = *fur.UncleHash
+	if fur.Coinbase == nil {
 		return errors.New("missing required field 'miner' for Header")
 	}
-	h.Coinbase = *dec.Coinbase
-	if dec.Root == nil {
+	h.Coinbase = *fur.Coinbase
+	if fur.Root == nil {
 		return errors.New("missing required field 'stateRoot' for Header")
 	}
-	h.Root = *dec.Root
-	if dec.TxHash == nil {
+	h.Root = *fur.Root
+	if fur.TxHash == nil {
 		return errors.New("missing required field 'transactionsRoot' for Header")
 	}
-	h.TxHash = *dec.TxHash
-	if dec.ReceiptHash == nil {
+	h.TxHash = *fur.TxHash
+	if fur.ReceiptHash == nil {
 		return errors.New("missing required field 'receiptsRoot' for Header")
 	}
-	h.ReceiptHash = *dec.ReceiptHash
-	if dec.Bloom == nil {
+	h.ReceiptHash = *fur.ReceiptHash
+	if fur.Bloom == nil {
 		return errors.New("missing required field 'logsBloom' for Header")
 	}
-	h.Bloom = *dec.Bloom
-	if dec.Difficulty == nil {
+	h.Bloom = *fur.Bloom
+	if fur.Difficulty == nil {
 		return errors.New("missing required field 'difficulty' for Header")
 	}
-	h.Difficulty = (*big.Int)(dec.Difficulty)
-	if dec.Number == nil {
+	h.Difficulty = (*big.Int)(fur.Difficulty)
+	if fur.Number == nil {
 		return errors.New("missing required field 'number' for Header")
 	}
-	h.Number = (*big.Int)(dec.Number)
-	if dec.GasLimit == nil {
+	h.Number = (*big.Int)(fur.Number)
+	if fur.GasLimit == nil {
 		return errors.New("missing required field 'gasLimit' for Header")
 	}
-	h.GasLimit = uint64(*dec.GasLimit)
-	if dec.GasUsed == nil {
+	h.GasLimit = uint64(*fur.GasLimit)
+	if fur.GasUsed == nil {
 		return errors.New("missing required field 'gasUsed' for Header")
 	}
-	h.GasUsed = uint64(*dec.GasUsed)
-	if dec.Time == nil {
+	h.GasUsed = uint64(*fur.GasUsed)
+	if fur.Time == nil {
 		return errors.New("missing required field 'timestamp' for Header")
 	}
-	h.Time = uint64(*dec.Time)
-	if dec.Extra == nil {
+	h.Time = uint64(*fur.Time)
+	if fur.Extra == nil {
 		return errors.New("missing required field 'extraData' for Header")
 	}
-	h.Extra = *dec.Extra
-	if dec.MixDigest != nil {
-		h.MixDigest = *dec.MixDigest
+	h.Extra = *fur.Extra
+	if fur.MixDigest != nil {
+		h.MixDigest = *fur.MixDigest
 	}
-	if dec.Nonce != nil {
-		h.Nonce = *dec.Nonce
+	if fur.Nonce != nil {
+		h.Nonce = *fur.Nonce
 	}
-	if dec.BaseFee != nil {
-		h.BaseFee = (*big.Int)(dec.BaseFee)
+	if fur.BaseFee != nil {
+		h.BaseFee = (*big.Int)(fur.BaseFee)
 	}
 	return nil
 }

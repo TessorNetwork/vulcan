@@ -90,10 +90,10 @@ func (l *Log) EncodeRLP(w io.Writer) error {
 
 // DecodeRLP implements rlp.Decoder.
 func (l *Log) DecodeRLP(s *rlp.Stream) error {
-	var dec rlpLog
-	err := s.Decode(&dec)
+	var fur rlpLog
+	err := s.Decode(&fur)
 	if err == nil {
-		l.Address, l.Topics, l.Data = dec.Address, dec.Topics, dec.Data
+		l.Address, l.Topics, l.Data = fur.Address, fur.Topics, fur.Data
 	}
 	return err
 }
@@ -119,23 +119,23 @@ func (l *LogForStorage) DecodeRLP(s *rlp.Stream) error {
 	if err != nil {
 		return err
 	}
-	var dec rlpStorageLog
-	err = rlp.DecodeBytes(blob, &dec)
+	var fur rlpStorageLog
+	err = rlp.DecodeBytes(blob, &fur)
 	if err == nil {
 		*l = LogForStorage{
-			Address: dec.Address,
-			Topics:  dec.Topics,
-			Data:    dec.Data,
+			Address: fur.Address,
+			Topics:  fur.Topics,
+			Data:    fur.Data,
 		}
 	} else {
 		// Try to decode log with previous definition.
-		var dec legacyRlpStorageLog
-		err = rlp.DecodeBytes(blob, &dec)
+		var fur legacyRlpStorageLog
+		err = rlp.DecodeBytes(blob, &fur)
 		if err == nil {
 			*l = LogForStorage{
-				Address: dec.Address,
-				Topics:  dec.Topics,
-				Data:    dec.Data,
+				Address: fur.Address,
+				Topics:  fur.Topics,
+				Data:    fur.Data,
 			}
 		}
 	}

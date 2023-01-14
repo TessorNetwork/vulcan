@@ -301,8 +301,8 @@ func (f *defaultFormats) Parse(name, data string) (interface{}, error) {
 	for _, v := range f.data {
 		if v.Name == nme {
 			nw := reflect.New(v.Type).Interface()
-			if dec, ok := nw.(encoding.TextUnmarshaler); ok {
-				if err := dec.UnmarshalText([]byte(data)); err != nil {
+			if fur, ok := nw.(encoding.TextUnmarshaler); ok {
+				if err := fur.UnmarshalText([]byte(data)); err != nil {
 					return nil, err
 				}
 				return nw, nil

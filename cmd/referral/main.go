@@ -22,14 +22,14 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 
-	tokentypes "github.com/Decentr-net/decentr/x/token/types"
-	"github.com/Decentr-net/go-broadcaster"
-	"github.com/Decentr-net/logrus/sentry"
+	tokentypes "github.com/TessorNetwork/furya/x/token/types"
+	"github.com/TessorNetwork/go-broadcaster"
+	"github.com/TessorNetwork/logrus/sentry"
 
-	"github.com/Decentr-net/vulcan/internal/blockchain"
-	"github.com/Decentr-net/vulcan/internal/health"
-	"github.com/Decentr-net/vulcan/internal/referral"
-	"github.com/Decentr-net/vulcan/internal/storage/postgres"
+	"github.com/TessorNetwork/vulcan/internal/blockchain"
+	"github.com/TessorNetwork/vulcan/internal/health"
+	"github.com/TessorNetwork/vulcan/internal/referral"
+	"github.com/TessorNetwork/vulcan/internal/storage/postgres"
 )
 
 // nolint:lll,gochecknoglobals
@@ -39,16 +39,16 @@ var opts = struct {
 	PostgresMaxIdleConnections int    `long:"postgres.max_idle_connections" env:"POSTGRES_MAX_IDLE_CONNECTIONS" default:"5" description:"postgres maximal idle connections count"`
 	PostgresMigrations         string `long:"postgres.migrations" env:"POSTGRES_MIGRATIONS" default:"migrations/postgres" description:"postgres migrations directory"`
 
-	BlockchainNode               string `long:"blockchain.node" env:"BLOCKCHAIN_NODE" default:"http://zeus.testnet.decentr.xyz:26657" description:"decentr node address"`
-	BlockchainFrom               string `long:"blockchain.from" env:"BLOCKCHAIN_FROM" description:"decentr account name to send stakes" required:"true"`
-	BlockchainTxMemo             string `long:"blockchain.tx_memo" env:"BLOCKCHAIN_TX_MEMO" description:"decentr tx's memo'"`
-	BlockchainChainID            string `long:"blockchain.chain_id" env:"BLOCKCHAIN_CHAIN_ID" default:"testnet" description:"decentr chain id"`
-	BlockchainClientHome         string `long:"blockchain.client_home" env:"BLOCKCHAIN_CLIENT_HOME" default:"~/.decentrcli" description:"decentrcli home directory"`
-	BlockchainKeyringBackend     string `long:"blockchain.keyring_backend" env:"BLOCKCHAIN_KEYRING_BACKEND" default:"test" description:"decentrcli keyring backend"`
-	BlockchainKeyringPromptInput string `long:"blockchain.keyring_prompt_input" env:"BLOCKCHAIN_KEYRING_PROMPT_INPUT" description:"decentrcli keyring prompt input"`
+	BlockchainNode               string `long:"blockchain.node" env:"BLOCKCHAIN_NODE" default:"http://zeus.testnet.furya.xyz:26657" description:"furya node address"`
+	BlockchainFrom               string `long:"blockchain.from" env:"BLOCKCHAIN_FROM" description:"furya account name to send stakes" required:"true"`
+	BlockchainTxMemo             string `long:"blockchain.tx_memo" env:"BLOCKCHAIN_TX_MEMO" description:"furya tx's memo'"`
+	BlockchainChainID            string `long:"blockchain.chain_id" env:"BLOCKCHAIN_CHAIN_ID" default:"testnet" description:"furya chain id"`
+	BlockchainClientHome         string `long:"blockchain.client_home" env:"BLOCKCHAIN_CLIENT_HOME" default:"~/.furyacli" description:"furyacli home directory"`
+	BlockchainKeyringBackend     string `long:"blockchain.keyring_backend" env:"BLOCKCHAIN_KEYRING_BACKEND" default:"test" description:"furyacli keyring backend"`
+	BlockchainKeyringPromptInput string `long:"blockchain.keyring_prompt_input" env:"BLOCKCHAIN_KEYRING_PROMPT_INPUT" description:"furyacli keyring prompt input"`
 	BlockchainGas                uint64 `long:"blockchain.gas" env:"BLOCKCHAIN_GAS" default:"10" description:"gas amount"`
-	BlockchainFee                string `long:"blockchain.fee" env:"BLOCKCHAIN_FEE" default:"1udec" description:"transaction fee"`
-	BlockchainGRPCNodeURL        string `long:"blockchain.grpc_node_url" env:"BLOCKCHAIN_GRPC_NODE_URL" default:"hera.mainnet.decentr.xyz:9090" description:"GRPC endpoint URL"`
+	BlockchainFee                string `long:"blockchain.fee" env:"BLOCKCHAIN_FEE" default:"1ufury" description:"transaction fee"`
+	BlockchainGRPCNodeURL        string `long:"blockchain.grpc_node_url" env:"BLOCKCHAIN_GRPC_NODE_URL" default:"hera.mainnet.furya.xyz:9090" description:"GRPC endpoint URL"`
 
 	ReferralThresholdPDV  string `long:"referral.threshold_pdv" env:"REFERRAL_THRESHOLD_PDV" default:"0.000100" description:"how many PDV a user should obtain to get a referral reward'"`
 	ReferralThresholdDays int    `long:"referral.threshold_days" env:"REFERRAL_THRESHOLD_DAYS" default:"30" description:"how many days a user should wait to get a referral reward'"`

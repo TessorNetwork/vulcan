@@ -7,7 +7,7 @@ package mock
 import (
 	context "context"
 	sql "database/sql"
-	storage "github.com/Decentr-net/vulcan/internal/storage"
+	storage "github.com/TessorNetwork/vulcan/internal/storage"
 	types "github.com/cosmos/cosmos-sdk/types"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"

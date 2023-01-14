@@ -20,10 +20,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/Decentr-net/vulcan/internal/blockchain"
-	"github.com/Decentr-net/vulcan/internal/mail"
-	"github.com/Decentr-net/vulcan/internal/referral"
-	"github.com/Decentr-net/vulcan/internal/storage"
+	"github.com/TessorNetwork/vulcan/internal/blockchain"
+	"github.com/TessorNetwork/vulcan/internal/mail"
+	"github.com/TessorNetwork/vulcan/internal/referral"
+	"github.com/TessorNetwork/vulcan/internal/storage"
 )
 
 const codeBytesSize = 3

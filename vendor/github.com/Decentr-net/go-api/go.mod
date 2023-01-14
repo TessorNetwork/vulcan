@@ -1,9 +1,9 @@
-module github.com/Decentr-net/go-api
+module github.com/TessorNetwork/go-api
 
 go 1.15
 
 require (
-	github.com/Decentr-net/logrus v0.7.2-0.20210316223658-7a9b48625189
+	github.com/TessorNetwork/logrus v0.7.2-0.20210316223658-7a9b48625189
 	github.com/cosmos/cosmos-sdk v0.44.3
 	github.com/davecgh/go-spew v1.1.1
 	github.com/gofrs/uuid v4.1.0+incompatible

@@ -6,8 +6,8 @@ package mock
 
 import (
 	context "context"
-	referral "github.com/Decentr-net/vulcan/internal/referral"
-	storage "github.com/Decentr-net/vulcan/internal/storage"
+	referral "github.com/TessorNetwork/vulcan/internal/referral"
+	storage "github.com/TessorNetwork/vulcan/internal/storage"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )

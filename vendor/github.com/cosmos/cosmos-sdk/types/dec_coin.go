@@ -21,8 +21,8 @@ func NewDecCoin(denom string, amount Int) DecCoin {
 	}
 }
 
-// NewDecCoinFromDec creates a new DecCoin instance from a Dec.
-func NewDecCoinFromDec(denom string, amount Dec) DecCoin {
+// NewDecCoinFromDec creates a new DecCoin instance from a Fur.
+func NewDecCoinFromDec(denom string, amount Fur) DecCoin {
 	mustValidateDenom(denom)
 
 	if amount.IsNegative() {
@@ -356,7 +356,7 @@ func (coins DecCoins) IsAnyNegative() bool {
 // MulDec multiplies all the coins by a decimal.
 //
 // CONTRACT: No zero coins will be returned.
-func (coins DecCoins) MulDec(d Dec) DecCoins {
+func (coins DecCoins) MulDec(d Fur) DecCoins {
 	var res DecCoins
 	for _, coin := range coins {
 		product := DecCoin{
@@ -376,7 +376,7 @@ func (coins DecCoins) MulDec(d Dec) DecCoins {
 // panics if d is zero.
 //
 // CONTRACT: No zero coins will be returned.
-func (coins DecCoins) MulDecTruncate(d Dec) DecCoins {
+func (coins DecCoins) MulDecTruncate(d Fur) DecCoins {
 	var res DecCoins
 
 	for _, coin := range coins {
@@ -396,7 +396,7 @@ func (coins DecCoins) MulDecTruncate(d Dec) DecCoins {
 // QuoDec divides all the decimal coins by a decimal. It panics if d is zero.
 //
 // CONTRACT: No zero coins will be returned.
-func (coins DecCoins) QuoDec(d Dec) DecCoins {
+func (coins DecCoins) QuoDec(d Fur) DecCoins {
 	if d.IsZero() {
 		panic("invalid zero decimal")
 	}
@@ -420,7 +420,7 @@ func (coins DecCoins) QuoDec(d Dec) DecCoins {
 // panics if d is zero.
 //
 // CONTRACT: No zero coins will be returned.
-func (coins DecCoins) QuoDecTruncate(d Dec) DecCoins {
+func (coins DecCoins) QuoDecTruncate(d Fur) DecCoins {
 	if d.IsZero() {
 		panic("invalid zero decimal")
 	}
@@ -446,7 +446,7 @@ func (coins DecCoins) Empty() bool {
 }
 
 // AmountOf returns the amount of a denom from deccoins
-func (coins DecCoins) AmountOf(denom string) Dec {
+func (coins DecCoins) AmountOf(denom string) Fur {
 	mustValidateDenom(denom)
 
 	switch len(coins) {

@@ -11,7 +11,7 @@ package supply
 //	"google.golang.org/grpc"
 //)
 //
-//const nativeNode = "zeus.mainnet.decentr.xyz:9090"
+//const nativeNode = "zeus.mainnet.furya.xyz:9090"
 //
 //const ethNode = "" // nolint
 //

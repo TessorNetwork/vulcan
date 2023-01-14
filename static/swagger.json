@@ -293,7 +293,7 @@
         "tags": [
           "Vulcan"
         ],
-        "summary": "Tracks the Decentr browser installation.",
+        "summary": "Tracks the Furya browser installation.",
         "operationId": "TrackBrowserInstallation",
         "parameters": [
           {
@@ -501,7 +501,7 @@
           "$ref": "#/definitions/Int"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/referral"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/referral"
     },
     "Coin": {
       "description": "NOTE: The amount field is an Int which implements the custom method\nsignatures required by gogoproto.",
@@ -545,10 +545,10 @@
           "x-go-name": "ThresholdDays"
         },
         "thresholdPDV": {
-          "$ref": "#/definitions/Dec"
+          "$ref": "#/definitions/Fur"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/referral"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/referral"
     },
     "ConfirmRequest": {
       "type": "object",
@@ -563,7 +563,7 @@
           "x-go-name": "Email"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/server"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/server"
     },
     "DLoan": {
       "type": "object",
@@ -596,7 +596,7 @@
           "x-go-name": "Address"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/server"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/server"
     },
     "DLoanRequest": {
       "type": "object",
@@ -620,17 +620,17 @@
           "x-go-name": "Address"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/server"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/server"
     },
-    "Dec": {
-      "description": "NOTE: never use new(Dec) or else we will panic unmarshalling into the\nnil embedded big.Int",
+    "Fur": {
+      "description": "NOTE: never use new(Fur) or else we will panic unmarshalling into the\nnil embedded big.Int",
       "type": "object",
       "x-go-package": "github.com/cosmos/cosmos-sdk/types"
     },
     "EmptyResponse": {
       "type": "object",
       "title": "EmptyResponse ...",
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/server"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/server"
     },
     "Error": {
       "type": "object",
@@ -641,7 +641,7 @@
           "x-go-name": "Error"
         }
       },
-      "x-go-package": "github.com/Decentr-net/go-api"
+      "x-go-package": "github.com/TessorNetwork/go-api"
     },
     "Int": {
       "description": "Int wraps big.Int with a 257 bit range bound\nChecks overflow, underflow and division by zero\nExists in range from -(2^256 - 1) to 2^256 - 1",
@@ -657,7 +657,7 @@
           "x-go-name": "Code"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/server"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/server"
     },
     "ReferralTrackingStatsItem": {
       "type": "object",
@@ -682,7 +682,7 @@
           "$ref": "#/definitions/Coin"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/server"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/server"
     },
     "ReferralTrackingStatsResponse": {
       "type": "object",
@@ -695,7 +695,7 @@
           "$ref": "#/definitions/ReferralTrackingStatsItem"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/server"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/server"
     },
     "RegisterRequest": {
       "type": "object",
@@ -722,7 +722,7 @@
           "x-go-name": "ReferralCode"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/server"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/server"
     },
     "RegisterStats": {
       "type": "object",
@@ -741,7 +741,7 @@
           "x-go-name": "Total"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/server"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/server"
     },
     "RewardLevel": {
       "type": "object",
@@ -761,7 +761,7 @@
           "x-go-name": "To"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/referral"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/referral"
     },
     "StatsItem": {
       "description": "Date is RFC3999 date, value is number of new accounts.",
@@ -778,7 +778,7 @@
           "x-go-name": "Value"
         }
       },
-      "x-go-package": "github.com/Decentr-net/vulcan/internal/server"
+      "x-go-package": "github.com/TessorNetwork/vulcan/internal/server"
     }
   }
 }

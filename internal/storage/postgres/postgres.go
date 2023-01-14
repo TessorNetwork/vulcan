@@ -14,7 +14,7 @@ import (
 	"github.com/lib/pq"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/Decentr-net/vulcan/internal/storage"
+	"github.com/TessorNetwork/vulcan/internal/storage"
 )
 
 var errBeginCalledWithinTx = errors.New("can not run in tx")

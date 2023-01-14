@@ -20,10 +20,10 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
 
-	"github.com/Decentr-net/go-api"
+	"github.com/TessorNetwork/go-api"
 
-	"github.com/Decentr-net/vulcan/internal/service"
-	"github.com/Decentr-net/vulcan/internal/supply"
+	"github.com/TessorNetwork/vulcan/internal/service"
+	"github.com/TessorNetwork/vulcan/internal/supply"
 )
 
 //go:generate swagger generate spec -t swagger -m -c . -o ../../static/swagger.json

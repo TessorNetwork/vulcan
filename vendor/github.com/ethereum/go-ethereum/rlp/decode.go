@@ -148,7 +148,7 @@ var (
 	bigInt           = reflect.TypeOf(big.Int{})
 )
 
-func makeDecoder(typ reflect.Type, tags tags) (dec decoder, err error) {
+func makeDecoder(typ reflect.Type, tags tags) (fur decoder, err error) {
 	kind := typ.Kind()
 	switch {
 	case typ == rawValueType:
@@ -280,10 +280,10 @@ func makeListDecoder(typ reflect.Type, tag tags) (decoder, error) {
 	if etypeinfo.decoderErr != nil {
 		return nil, etypeinfo.decoderErr
 	}
-	var dec decoder
+	var fur decoder
 	switch {
 	case typ.Kind() == reflect.Array:
-		dec = func(s *Stream, val reflect.Value) error {
+		fur = func(s *Stream, val reflect.Value) error {
 			return decodeListArray(s, val, etypeinfo.decoder)
 		}
 	case tag.tail:
@@ -291,15 +291,15 @@ func makeListDecoder(typ reflect.Type, tag tags) (decoder, error) {
 		// of a struct and is supposed to swallow all remaining
 		// list elements. The struct decoder already called s.List,
 		// proceed directly to decoding the elements.
-		dec = func(s *Stream, val reflect.Value) error {
+		fur = func(s *Stream, val reflect.Value) error {
 			return decodeSliceElems(s, val, etypeinfo.decoder)
 		}
 	default:
-		dec = func(s *Stream, val reflect.Value) error {
+		fur = func(s *Stream, val reflect.Value) error {
 			return decodeListSlice(s, val, etypeinfo.decoder)
 		}
 	}
-	return dec, nil
+	return fur, nil
 }
 
 func decodeListSlice(s *Stream, val reflect.Value, elemdec decoder) error {
@@ -419,7 +419,7 @@ func makeStructDecoder(typ reflect.Type) (decoder, error) {
 			return nil, structFieldError{typ, f.index, f.info.decoderErr}
 		}
 	}
-	dec := func(s *Stream, val reflect.Value) (err error) {
+	fur := func(s *Stream, val reflect.Value) (err error) {
 		if _, err := s.List(); err != nil {
 			return wrapStreamError(err, typ)
 		}
@@ -440,7 +440,7 @@ func makeStructDecoder(typ reflect.Type) (decoder, error) {
 		}
 		return wrapStreamError(s.ListEnd(), typ)
 	}
-	return dec, nil
+	return fur, nil
 }
 
 func zeroFields(structval reflect.Value, fields []field) {

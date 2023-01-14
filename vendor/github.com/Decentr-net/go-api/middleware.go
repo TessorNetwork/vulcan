@@ -13,7 +13,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/tomasen/realip"
 
-	logging "github.com/Decentr-net/logrus/context"
+	logging "github.com/TessorNetwork/logrus/context"
 )
 
 // RecovererMiddleware handles panics.
@@ -24,7 +24,7 @@ func RecovererMiddleware(next http.Handler) http.Handler {
 				logging.GetLogger(r.Context()).Infof(
 					"service recovered from panic stack=%s", string(debug.Stack()))
 
-				WriteInternalError(r.Context(), w, nil, spew.Sdump(rvr))
+				WriteInternalError(r.Context(), w, spew.Sdump(rvr))
 			}
 		}()
 

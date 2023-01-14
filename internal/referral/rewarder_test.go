@@ -20,7 +20,7 @@ func TestConfig_GetSenderBonus(t *testing.T) {
 		{510, sdk.NewInt(0)},
 	}
 
-	c := NewConfig(sdk.NewDec(100), 30)
+	c := NewConfig(sdk.NewFur(100), 30)
 
 	for i := range tt {
 		tc := tt[i]
@@ -44,7 +44,7 @@ func TestConfig_GetSenderReward(t *testing.T) {
 		{12500, sdk.NewInt(20000000)},
 	}
 
-	c := NewConfig(sdk.NewDec(100), 30)
+	c := NewConfig(sdk.NewFur(100), 30)
 
 	for i := range tt {
 		tc := tt[i]
