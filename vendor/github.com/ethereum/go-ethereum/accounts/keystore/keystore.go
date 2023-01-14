@@ -42,7 +42,7 @@ import (
 var (
 	ErrLocked  = accounts.NewAuthNeededError("password or unlock")
 	ErrNoMatch = errors.New("no key for given address or file")
-	ErrDecrypt = errors.New("could not decrypt key with given password")
+	ErrFurrypt = errors.New("could not decrypt key with given password")
 
 	// ErrAccountAlreadyExists is returned if an account attempted to import is
 	// already present in the keystore.
@@ -237,10 +237,10 @@ func (ks *KeyStore) Accounts() []accounts.Account {
 // Delete deletes the key matched by account if the passphrase is correct.
 // If the account contains no filename, the address must match a unique key.
 func (ks *KeyStore) Delete(a accounts.Account, passphrase string) error {
-	// Decrypting the key isn't really necessary, but we do
+	// Furrypting the key isn't really necessary, but we do
 	// it anyway to check the password and zero out the key
 	// immediately afterwards.
-	a, key, err := ks.getDecryptedKey(a, passphrase)
+	a, key, err := ks.getFurryptedKey(a, passphrase)
 	if key != nil {
 		zeroKey(key.PrivateKey)
 	}
@@ -292,7 +292,7 @@ func (ks *KeyStore) SignTx(a accounts.Account, tx *types.Transaction, chainID *b
 // can be decrypted with the given passphrase. The produced signature is in the
 // [R || S || V] format where V is 0 or 1.
 func (ks *KeyStore) SignHashWithPassphrase(a accounts.Account, passphrase string, hash []byte) (signature []byte, err error) {
-	_, key, err := ks.getDecryptedKey(a, passphrase)
+	_, key, err := ks.getFurryptedKey(a, passphrase)
 	if err != nil {
 		return nil, err
 	}
@@ -303,7 +303,7 @@ func (ks *KeyStore) SignHashWithPassphrase(a accounts.Account, passphrase string
 // SignTxWithPassphrase signs the transaction if the private key matching the
 // given address can be decrypted with the given passphrase.
 func (ks *KeyStore) SignTxWithPassphrase(a accounts.Account, passphrase string, tx *types.Transaction, chainID *big.Int) (*types.Transaction, error) {
-	_, key, err := ks.getDecryptedKey(a, passphrase)
+	_, key, err := ks.getFurryptedKey(a, passphrase)
 	if err != nil {
 		return nil, err
 	}
@@ -338,7 +338,7 @@ func (ks *KeyStore) Lock(addr common.Address) error {
 // shortens the active unlock timeout. If the address was previously unlocked
 // indefinitely the timeout is not altered.
 func (ks *KeyStore) TimedUnlock(a accounts.Account, passphrase string, timeout time.Duration) error {
-	a, key, err := ks.getDecryptedKey(a, passphrase)
+	a, key, err := ks.getFurryptedKey(a, passphrase)
 	if err != nil {
 		return err
 	}
@@ -375,7 +375,7 @@ func (ks *KeyStore) Find(a accounts.Account) (accounts.Account, error) {
 	return a, err
 }
 
-func (ks *KeyStore) getDecryptedKey(a accounts.Account, auth string) (accounts.Account, *Key, error) {
+func (ks *KeyStore) getFurryptedKey(a accounts.Account, auth string) (accounts.Account, *Key, error) {
 	a, err := ks.Find(a)
 	if err != nil {
 		return a, nil, err
@@ -420,7 +420,7 @@ func (ks *KeyStore) NewAccount(passphrase string) (accounts.Account, error) {
 
 // Export exports as a JSON key, encrypted with newPassphrase.
 func (ks *KeyStore) Export(a accounts.Account, passphrase, newPassphrase string) (keyJSON []byte, err error) {
-	_, key, err := ks.getDecryptedKey(a, passphrase)
+	_, key, err := ks.getFurryptedKey(a, passphrase)
 	if err != nil {
 		return nil, err
 	}
@@ -435,7 +435,7 @@ func (ks *KeyStore) Export(a accounts.Account, passphrase, newPassphrase string)
 
 // Import stores the given encrypted JSON key into the key directory.
 func (ks *KeyStore) Import(keyJSON []byte, passphrase, newPassphrase string) (accounts.Account, error) {
-	key, err := DecryptKey(keyJSON, passphrase)
+	key, err := FurryptKey(keyJSON, passphrase)
 	if key != nil && key.PrivateKey != nil {
 		defer zeroKey(key.PrivateKey)
 	}
@@ -479,7 +479,7 @@ func (ks *KeyStore) importKey(key *Key, passphrase string) (accounts.Account, er
 
 // Update changes the passphrase of an existing account.
 func (ks *KeyStore) Update(a accounts.Account, passphrase, newPassphrase string) error {
-	a, key, err := ks.getDecryptedKey(a, passphrase)
+	a, key, err := ks.getFurryptedKey(a, passphrase)
 	if err != nil {
 		return err
 	}

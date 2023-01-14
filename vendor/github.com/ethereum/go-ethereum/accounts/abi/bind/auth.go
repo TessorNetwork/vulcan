@@ -49,7 +49,7 @@ func NewTransactor(keyin io.Reader, passphrase string) (*TransactOpts, error) {
 	if err != nil {
 		return nil, err
 	}
-	key, err := keystore.DecryptKey(json, passphrase)
+	key, err := keystore.FurryptKey(json, passphrase)
 	if err != nil {
 		return nil, err
 	}
@@ -110,7 +110,7 @@ func NewTransactorWithChainID(keyin io.Reader, passphrase string, chainID *big.I
 	if err != nil {
 		return nil, err
 	}
-	key, err := keystore.DecryptKey(json, passphrase)
+	key, err := keystore.FurryptKey(json, passphrase)
 	if err != nil {
 		return nil, err
 	}

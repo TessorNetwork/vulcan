@@ -409,25 +409,25 @@ func (_Furya *FuryaTransactorSession) Approve(spender common.Address, amount *bi
 	return _Furya.Contract.Approve(&_Furya.TransactOpts, spender, amount)
 }
 
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
+// FurreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_Furya *FuryaTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+func (_Furya *FuryaTransactor) FurreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
 	return _Furya.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
 }
 
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
+// FurreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_Furya *FuryaSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _Furya.Contract.DecreaseAllowance(&_Furya.TransactOpts, spender, subtractedValue)
+func (_Furya *FuryaSession) FurreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _Furya.Contract.FurreaseAllowance(&_Furya.TransactOpts, spender, subtractedValue)
 }
 
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
+// FurreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_Furya *FuryaTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _Furya.Contract.DecreaseAllowance(&_Furya.TransactOpts, spender, subtractedValue)
+func (_Furya *FuryaTransactorSession) FurreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _Furya.Contract.FurreaseAllowance(&_Furya.TransactOpts, spender, subtractedValue)
 }
 
 // IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.

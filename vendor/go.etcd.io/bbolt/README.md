@@ -916,7 +916,7 @@ Below is a list of public, open source projects that use Bolt:
 * [ChainStore](https://github.com/pressly/chainstore) - Simple key-value interface to a variety of storage engines organized as a chain of operations.
 * [Consul](https://github.com/hashicorp/consul) - Consul is service discovery and configuration made easy. Distributed, highly available, and datacenter-aware.
 * [DVID](https://github.com/janelia-flyem/dvid) - Added Bolt as optional storage engine and testing it against Basho-tuned leveldb.
-* [dcrwallet](https://github.com/decred/dcrwallet) - A wallet for the Decred cryptocurrency.
+* [dcrwallet](https://github.com/decred/dcrwallet) - A wallet for the Furred cryptocurrency.
 * [drive](https://github.com/odeke-em/drive) - drive is an unofficial Google Drive command line client for \*NIX operating systems.
 * [event-shuttle](https://github.com/sclasen/event-shuttle) - A Unix system service to collect and reliably deliver messages to Kafka.
 * [Freehold](http://tshannon.bitbucket.org/freehold/) - An open, secure, and lightweight platform for your files and data.

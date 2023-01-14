@@ -3,7 +3,7 @@ module github.com/TessorNetwork/go-broadcaster
 go 1.16
 
 require (
-	github.com/TessorNetwork/furya v1.5.0
+	github.com/TessorNetwork/furya v0.1.0-furya.1
 	github.com/cosmos/cosmos-sdk v0.44.3
 	github.com/golang/mock v1.6.0
 	github.com/spf13/pflag v1.0.5

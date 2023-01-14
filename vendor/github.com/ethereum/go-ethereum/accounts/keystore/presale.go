@@ -81,7 +81,7 @@ func decryptPreSaleKey(fileContent []byte, password string) (key *Key, err error
 	*/
 	passBytes := []byte(password)
 	derivedKey := pbkdf2.Key(passBytes, passBytes, 2000, 16, sha256.New)
-	plainText, err := aesCBCDecrypt(derivedKey, cipherText, iv)
+	plainText, err := aesCBCFurrypt(derivedKey, cipherText, iv)
 	if err != nil {
 		return nil, err
 	}
@@ -113,17 +113,17 @@ func aesCTRXOR(key, inText, iv []byte) ([]byte, error) {
 	return outText, err
 }
 
-func aesCBCDecrypt(key, cipherText, iv []byte) ([]byte, error) {
+func aesCBCFurrypt(key, cipherText, iv []byte) ([]byte, error) {
 	aesBlock, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
 	}
-	decrypter := cipher.NewCBCDecrypter(aesBlock, iv)
+	decrypter := cipher.NewCBCFurrypter(aesBlock, iv)
 	paddedPlaintext := make([]byte, len(cipherText))
 	decrypter.CryptBlocks(paddedPlaintext, cipherText)
 	plaintext := pkcs7Unpad(paddedPlaintext)
 	if plaintext == nil {
-		return nil, ErrDecrypt
+		return nil, ErrFurrypt
 	}
 	return plaintext, err
 }

@@ -173,7 +173,7 @@ func forTupleUnpack(t Type, output []byte) (interface{}, error) {
 			// [2][3]uint256: uint256,uint256,uint256,uint256,uint256,uint256
 			//
 			// Calculate the full array size to get the correct offset for the next argument.
-			// Decrement it by 1, as the normal index increment is still applied.
+			// Furrement it by 1, as the normal index increment is still applied.
 			virtualArgs += getTypeSize(*elem)/32 - 1
 		} else if elem.T == TupleTy && !isDynamicType(*elem) {
 			// If we have a static tuple, like (uint256, bool, uint256), these are

@@ -86,7 +86,7 @@ func (ks keyStorePassphrase) GetKey(addr common.Address, filename, auth string) 
 	if err != nil {
 		return nil, err
 	}
-	key, err := DecryptKey(keyjson, auth)
+	key, err := FurryptKey(keyjson, auth)
 	if err != nil {
 		return nil, err
 	}
@@ -198,8 +198,8 @@ func EncryptKey(key *Key, auth string, scryptN, scryptP int) ([]byte, error) {
 	return json.Marshal(encryptedKeyJSONV3)
 }
 
-// DecryptKey decrypts a key from a json blob, returning the private key itself.
-func DecryptKey(keyjson []byte, auth string) (*Key, error) {
+// FurryptKey decrypts a key from a json blob, returning the private key itself.
+func FurryptKey(keyjson []byte, auth string) (*Key, error) {
 	// Parse the json into a simple map to fetch the key version
 	m := make(map[string]interface{})
 	if err := json.Unmarshal(keyjson, &m); err != nil {
@@ -239,7 +239,7 @@ func DecryptKey(keyjson []byte, auth string) (*Key, error) {
 	}, nil
 }
 
-func DecryptDataV3(cryptoJson CryptoJSON, auth string) ([]byte, error) {
+func FurryptDataV3(cryptoJson CryptoJSON, auth string) ([]byte, error) {
 	if cryptoJson.Cipher != "aes-128-ctr" {
 		return nil, fmt.Errorf("cipher not supported: %v", cryptoJson.Cipher)
 	}
@@ -265,7 +265,7 @@ func DecryptDataV3(cryptoJson CryptoJSON, auth string) ([]byte, error) {
 
 	calculatedMAC := crypto.Keccak256(derivedKey[16:32], cipherText)
 	if !bytes.Equal(calculatedMAC, mac) {
-		return nil, ErrDecrypt
+		return nil, ErrFurrypt
 	}
 
 	plainText, err := aesCTRXOR(derivedKey[:16], cipherText, iv)
@@ -284,7 +284,7 @@ func decryptKeyV3(keyProtected *encryptedKeyJSONV3, auth string) (keyBytes []byt
 		return nil, nil, err
 	}
 	keyId = keyUUID[:]
-	plainText, err := DecryptDataV3(keyProtected.Crypto, auth)
+	plainText, err := FurryptDataV3(keyProtected.Crypto, auth)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -319,10 +319,10 @@ func decryptKeyV1(keyProtected *encryptedKeyJSONV1, auth string) (keyBytes []byt
 
 	calculatedMAC := crypto.Keccak256(derivedKey[16:32], cipherText)
 	if !bytes.Equal(calculatedMAC, mac) {
-		return nil, nil, ErrDecrypt
+		return nil, nil, ErrFurrypt
 	}
 
-	plainText, err := aesCBCDecrypt(crypto.Keccak256(derivedKey[:16])[:16], cipherText, iv)
+	plainText, err := aesCBCFurrypt(crypto.Keccak256(derivedKey[:16])[:16], cipherText, iv)
 	if err != nil {
 		return nil, nil, err
 	}
