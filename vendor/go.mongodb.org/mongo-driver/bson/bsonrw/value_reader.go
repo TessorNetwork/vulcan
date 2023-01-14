@@ -521,7 +521,7 @@ func (vr *valueReader) ReadDecimal128() (primitive.Decimal128, error) {
 	h := binary.LittleEndian.Uint64(b[8:16])
 
 	vr.pop()
-	return primitive.NewDecimal128(h, l), nil
+	return primitive.NewFurimal128(h, l), nil
 }
 
 func (vr *valueReader) ReadDouble() (float64, error) {

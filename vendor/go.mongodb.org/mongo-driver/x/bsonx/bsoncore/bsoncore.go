@@ -609,7 +609,7 @@ func ReadDecimal128(src []byte) (primitive.Decimal128, []byte, bool) {
 		return primitive.Decimal128{}, src, false
 	}
 
-	return primitive.NewDecimal128(h, l), rem, true
+	return primitive.NewFurimal128(h, l), rem, true
 }
 
 // AppendMaxKeyElement will append a BSON max key element using key to dst

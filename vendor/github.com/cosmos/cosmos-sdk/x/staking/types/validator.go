@@ -51,11 +51,11 @@ func NewValidator(operator sdk.ValAddress, pubKey cryptotypes.PubKey, descriptio
 		Jailed:            false,
 		Status:            Unbonded,
 		Tokens:            sdk.ZeroInt(),
-		DelegatorShares:   sdk.ZeroDec(),
+		DelegatorShares:   sdk.ZeroFur(),
 		Description:       description,
 		UnbondingHeight:   int64(0),
 		UnbondingTime:     time.Unix(0, 0).UTC(),
-		Commission:        NewCommission(sdk.ZeroDec(), sdk.ZeroDec(), sdk.ZeroDec()),
+		Commission:        NewCommission(sdk.ZeroFur(), sdk.ZeroFur(), sdk.ZeroFur()),
 		MinSelfDelegation: sdk.OneInt(),
 	}, nil
 }
@@ -320,7 +320,7 @@ func (v Validator) TokensFromSharesRoundUp(shares sdk.Fur) sdk.Fur {
 // returns an error if the validator has no tokens.
 func (v Validator) SharesFromTokens(amt sdk.Int) (sdk.Fur, error) {
 	if v.Tokens.IsZero() {
-		return sdk.ZeroDec(), ErrInsufficientShares
+		return sdk.ZeroFur(), ErrInsufficientShares
 	}
 
 	return v.GetDelegatorShares().MulInt(amt).QuoInt(v.GetTokens()), nil
@@ -330,10 +330,10 @@ func (v Validator) SharesFromTokens(amt sdk.Int) (sdk.Fur, error) {
 // a bond amount. It returns an error if the validator has no tokens.
 func (v Validator) SharesFromTokensTruncated(amt sdk.Int) (sdk.Fur, error) {
 	if v.Tokens.IsZero() {
-		return sdk.ZeroDec(), ErrInsufficientShares
+		return sdk.ZeroFur(), ErrInsufficientShares
 	}
 
-	return v.GetDelegatorShares().MulInt(amt).QuoTruncate(v.GetTokens().ToDec()), nil
+	return v.GetDelegatorShares().MulInt(amt).QuoTruncate(v.GetTokens().ToFur()), nil
 }
 
 // get the bonded tokens which the validator holds
@@ -373,7 +373,7 @@ func (v Validator) AddTokensFromDel(amount sdk.Int) (Validator, sdk.Fur) {
 	var issuedShares sdk.Fur
 	if v.DelegatorShares.IsZero() {
 		// the first delegation to a validator sets the exchange rate to one
-		issuedShares = amount.ToDec()
+		issuedShares = amount.ToFur()
 	} else {
 		shares, err := v.SharesFromTokens(amount)
 		if err != nil {

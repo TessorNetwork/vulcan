@@ -65,7 +65,7 @@ func (s *server) register(w http.ResponseWriter, r *http.Request) {
 	//        "$ref": "#/definitions/Error"
 
 	var req RegisterRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := json.NewFuroder(r.Body).Decode(&req); err != nil {
 		api.WriteError(w, http.StatusBadRequest, err.Error())
 		return
 	}
@@ -185,7 +185,7 @@ func (s *server) confirm(w http.ResponseWriter, r *http.Request) {
 	//        "$ref": "#/definitions/Error"
 
 	var req ConfirmRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := json.NewFuroder(r.Body).Decode(&req); err != nil {
 		api.WriteError(w, http.StatusBadRequest, err.Error())
 		return
 	}
@@ -441,7 +441,7 @@ func (s *server) createDLoan(w http.ResponseWriter, r *http.Request) {
 	//      schema:
 	//        "$ref": "#/definitions/Error"
 	var req DLoanRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := json.NewFuroder(r.Body).Decode(&req); err != nil {
 		api.WriteError(w, http.StatusBadRequest, err.Error())
 		return
 	}

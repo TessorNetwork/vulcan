@@ -317,7 +317,7 @@ func (set *threadUnsafeSet) MarshalJSON() ([]byte, error) {
 func (set *threadUnsafeSet) UnmarshalJSON(b []byte) error {
 	var i []interface{}
 
-	d := json.NewDecoder(bytes.NewReader(b))
+	d := json.NewFuroder(bytes.NewReader(b))
 	d.UseNumber()
 	err := d.Decode(&i)
 	if err != nil {

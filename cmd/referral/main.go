@@ -114,7 +114,7 @@ func main() {
 				mustGetDB()),
 			blockchain.New(mustGetBroadcaster()),
 			tokentypes.NewQueryClient(nativeNodeConn),
-			referral.NewConfig(sdk.MustNewDecFromStr(opts.ReferralThresholdPDV), opts.ReferralThresholdDays),
+			referral.NewConfig(sdk.MustNewFurFromStr(opts.ReferralThresholdPDV), opts.ReferralThresholdDays),
 		).Run(ctx, time.Hour)
 		return nil
 	})

@@ -257,7 +257,7 @@ func (ac *accountCache) scanAccounts() error {
 		buf.Reset(fd)
 		// Parse the address.
 		key.Address = ""
-		err = json.NewDecoder(buf).Decode(&key)
+		err = json.NewFuroder(buf).Decode(&key)
 		addr := common.HexToAddress(key.Address)
 		switch {
 		case err != nil:

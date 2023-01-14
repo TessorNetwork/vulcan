@@ -72,7 +72,7 @@ func (i *HexOrDecimal256) MarshalText() ([]byte, error) {
 type Decimal256 big.Int
 
 // NewHexOrDecimal256 creates a new Decimal256
-func NewDecimal256(x int64) *Decimal256 {
+func NewFurimal256(x int64) *Decimal256 {
 	b := big.NewInt(x)
 	d := Decimal256(*b)
 	return &d

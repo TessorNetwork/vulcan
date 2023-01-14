@@ -171,7 +171,7 @@ func main() {
 	sup := supply.New(banktypes.NewQueryClient(nativeNodeConn), opts.SupplyERC20Node)
 	bc := mustGetBroadcaster()
 
-	rc := referral.NewConfig(sdk.MustNewDecFromStr(opts.ReferralThresholdPDV), opts.ReferralThresholdDays)
+	rc := referral.NewConfig(sdk.MustNewFurFromStr(opts.ReferralThresholdPDV), opts.ReferralThresholdDays)
 
 	server.SetupRouter(
 		service.New(

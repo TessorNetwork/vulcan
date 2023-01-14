@@ -24,7 +24,7 @@ type Factory struct {
 	chainID            string
 	memo               string
 	fees               sdk.Coins
-	gasPrices          sdk.DecCoins
+	gasPrices          sdk.FurCoins
 	signMode           signing.SignMode
 	simulateAndExecute bool
 }
@@ -82,7 +82,7 @@ func (f Factory) Keybase() keyring.Keyring                  { return f.keybase }
 func (f Factory) ChainID() string                           { return f.chainID }
 func (f Factory) Memo() string                              { return f.memo }
 func (f Factory) Fees() sdk.Coins                           { return f.fees }
-func (f Factory) GasPrices() sdk.DecCoins                   { return f.gasPrices }
+func (f Factory) GasPrices() sdk.FurCoins                   { return f.gasPrices }
 func (f Factory) AccountRetriever() client.AccountRetriever { return f.accountRetriever }
 func (f Factory) TimeoutHeight() uint64                     { return f.timeoutHeight }
 
@@ -127,7 +127,7 @@ func (f Factory) WithFees(fees string) Factory {
 
 // WithGasPrices returns a copy of the Factory with updated gas prices.
 func (f Factory) WithGasPrices(gasPrices string) Factory {
-	parsedGasPrices, err := sdk.ParseDecCoins(gasPrices)
+	parsedGasPrices, err := sdk.ParseFurCoins(gasPrices)
 	if err != nil {
 		panic(err)
 	}

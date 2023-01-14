@@ -168,7 +168,7 @@ func DelegatorSharesInvariant(k Keeper) sdk.Invariant {
 		validators := k.GetAllValidators(ctx)
 		for _, validator := range validators {
 			valTotalDelShares := validator.GetDelegatorShares()
-			totalDelShares := sdk.ZeroDec()
+			totalDelShares := sdk.ZeroFur()
 
 			delegations := k.GetValidatorDelegations(ctx, validator.GetOperator())
 			for _, delegation := range delegations {

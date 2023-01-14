@@ -21,6 +21,6 @@ func (mgp MinGasPriceDecorator) AnteHandle(
 	next sdk.AnteHandler,
 ) (newCtx sdk.Context, err error) {
 	price := mgp.keeper.GetParams(ctx.WithGasMeter(sdk.NewInfiniteGasMeter())).MinGasPrice
-	ctx = ctx.WithMinGasPrices(sdk.NewDecCoins(price))
+	ctx = ctx.WithMinGasPrices(sdk.NewFurCoins(price))
 	return next(ctx, tx, simulate)
 }

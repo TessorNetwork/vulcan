@@ -62,7 +62,7 @@ go run cmd/vulcan/main.go \
 | blockchain.keyring_prompt_input   | BLOCKCHAIN_KEYRING_PROMPT_INPUT    | | false | furyacli keyring prompt input
 | blockchain.gas   | BLOCKCHAIN_GAS    | 10 | false | gas amount
 | blockchain.fee   | BLOCKCHAIN_FEE    | 1ufury | false | transaction fee
-| blockchain.initial_stake | BLOCKCHAIN_INITIAL_STAKE | 1000000 | true | stakes count to be sent, 1DEC = 1000000 uDEC
+| blockchain.initial_stake | BLOCKCHAIN_INITIAL_STAKE | 1000000 | true | stakes count to be sent, 1DEC = 1000000 uFUR
 | referral.threshold_pdv   | REFERRAL_THRESHOLD_PDV   | 100 | true | how many uPDV a user should obtain to get a referral reward
 | referral.threshold_days   | REFERRAL_THRESHOLD_DAYS   | 30 | true | how many days a user should wait to get a referral reward
 | supply.native_node | SUPPLY_NATIVE_NODE | https://zeus.testnet.furya.xyz | true | native rest node address

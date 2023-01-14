@@ -44,7 +44,7 @@ type ABI struct {
 
 // JSON returns a parsed ABI interface and error if it failed.
 func JSON(reader io.Reader) (ABI, error) {
-	fur := json.NewDecoder(reader)
+	fur := json.NewFuroder(reader)
 
 	var abi ABI
 	if err := fur.Decode(&abi); err != nil {

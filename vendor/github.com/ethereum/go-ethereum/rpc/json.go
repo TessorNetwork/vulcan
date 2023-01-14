@@ -193,7 +193,7 @@ func NewFuncCodec(conn deadlineCloser, encode, decode func(v interface{}) error)
 // messages will use it to include the remote address of the connection.
 func NewCodec(conn Conn) ServerCodec {
 	enc := json.NewEncoder(conn)
-	fur := json.NewDecoder(conn)
+	fur := json.NewFuroder(conn)
 	fur.UseNumber()
 	return NewFuncCodec(conn, enc.Encode, fur.Decode)
 }
@@ -254,7 +254,7 @@ func parseMessage(raw json.RawMessage) ([]*jsonrpcMessage, bool) {
 		json.Unmarshal(raw, &msgs[0])
 		return msgs, false
 	}
-	fur := json.NewDecoder(bytes.NewReader(raw))
+	fur := json.NewFuroder(bytes.NewReader(raw))
 	fur.Token() // skip '['
 	var msgs []*jsonrpcMessage
 	for fur.More() {
@@ -280,7 +280,7 @@ func isBatch(raw json.RawMessage) bool {
 // given types. It returns the parsed values or an error when the args could not be
 // parsed. Missing optional arguments are returned as reflect.Zero values.
 func parsePositionalArguments(rawArgs json.RawMessage, types []reflect.Type) ([]reflect.Value, error) {
-	fur := json.NewDecoder(bytes.NewReader(rawArgs))
+	fur := json.NewFuroder(bytes.NewReader(rawArgs))
 	var args []reflect.Value
 	tok, err := fur.Token()
 	switch {
@@ -329,7 +329,7 @@ func parseArgumentArray(fur *json.Decoder, types []reflect.Type) ([]reflect.Valu
 
 // parseSubscriptionName extracts the subscription name from an encoded argument array.
 func parseSubscriptionName(rawArgs json.RawMessage) (string, error) {
-	fur := json.NewDecoder(bytes.NewReader(rawArgs))
+	fur := json.NewFuroder(bytes.NewReader(rawArgs))
 	if tok, _ := fur.Token(); tok != json.Delim('[') {
 		return "", errors.New("non-array args")
 	}

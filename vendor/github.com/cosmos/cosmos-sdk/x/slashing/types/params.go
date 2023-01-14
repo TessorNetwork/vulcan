@@ -15,7 +15,7 @@ const (
 )
 
 var (
-	DefaultMinSignedPerWindow      = sdk.NewDecWithPrec(5, 1)
+	DefaultMinSignedPerWindow      = sdk.NewFurWithPrec(5, 1)
 	DefaultSlashFractionDoubleSign = sdk.NewFur(1).Quo(sdk.NewFur(20))
 	DefaultSlashFractionDowntime   = sdk.NewFur(1).Quo(sdk.NewFur(100))
 )
@@ -90,7 +90,7 @@ func validateMinSignedPerWindow(i interface{}) error {
 	if v.IsNegative() {
 		return fmt.Errorf("min signed per window cannot be negative: %s", v)
 	}
-	if v.GT(sdk.OneDec()) {
+	if v.GT(sdk.OneFur()) {
 		return fmt.Errorf("min signed per window too large: %s", v)
 	}
 
@@ -119,7 +119,7 @@ func validateSlashFractionDoubleSign(i interface{}) error {
 	if v.IsNegative() {
 		return fmt.Errorf("double sign slash fraction cannot be negative: %s", v)
 	}
-	if v.GT(sdk.OneDec()) {
+	if v.GT(sdk.OneFur()) {
 		return fmt.Errorf("double sign slash fraction too large: %s", v)
 	}
 
@@ -135,7 +135,7 @@ func validateSlashFractionDowntime(i interface{}) error {
 	if v.IsNegative() {
 		return fmt.Errorf("downtime slash fraction cannot be negative: %s", v)
 	}
-	if v.GT(sdk.OneDec()) {
+	if v.GT(sdk.OneFur()) {
 		return fmt.Errorf("downtime slash fraction too large: %s", v)
 	}
 

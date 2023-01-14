@@ -423,7 +423,7 @@ func (s *service) CheckRecaptcha(ctx context.Context, action, recaptchaResponse 
 		Hostname    string    `json:"hostname"`
 		ErrorCodes  []string  `json:"error-codes"`
 	}
-	if err := json.NewDecoder(resp.Body).Decode(&body); err != nil {
+	if err := json.NewFuroder(resp.Body).Decode(&body); err != nil {
 		return fmt.Errorf("failed to unmarshal recaptcha response: %w", err)
 	}
 

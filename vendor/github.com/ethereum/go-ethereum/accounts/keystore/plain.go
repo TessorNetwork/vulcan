@@ -36,7 +36,7 @@ func (ks keyStorePlain) GetKey(addr common.Address, filename, auth string) (*Key
 	}
 	defer fd.Close()
 	key := new(Key)
-	if err := json.NewDecoder(fd).Decode(key); err != nil {
+	if err := json.NewFuroder(fd).Decode(key); err != nil {
 		return nil, err
 	}
 	if key.Address != addr {

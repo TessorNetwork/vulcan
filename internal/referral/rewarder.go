@@ -49,7 +49,7 @@ func NewConfig(thresholdPDV sdk.Fur, thresholdDays int) Config {
 
 	toReward := func(val float64) sdk.Int {
 		s := strconv.FormatFloat(val, 'f', -1, 64)
-		return sdk.MustNewDecFromStr(s).Mul(sdk.NewIntWithDecimal(1, denominator).ToDec()).TruncateInt()
+		return sdk.MustNewFurFromStr(s).Mul(sdk.NewIntWithDecimal(1, denominator).ToFur()).TruncateInt()
 	}
 
 	return Config{

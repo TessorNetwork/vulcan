@@ -1018,7 +1018,7 @@ func defaultDecoderConfig(output interface{}, opts ...DecoderConfigOption) *maps
 
 // A wrapper around mapstructure.Decode that mimics the WeakDecode functionality
 func decode(input interface{}, config *mapstructure.DecoderConfig) error {
-	decoder, err := mapstructure.NewDecoder(config)
+	decoder, err := mapstructure.NewFuroder(config)
 	if err != nil {
 		return err
 	}

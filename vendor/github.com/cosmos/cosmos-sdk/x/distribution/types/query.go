@@ -11,12 +11,12 @@ import (
 // QueryDelegatorTotalRewards query's response.
 type QueryDelegatorTotalRewardsResponse struct {
 	Rewards []DelegationDelegatorReward `json:"rewards" yaml:"rewards"`
-	Total   sdk.DecCoins                `json:"total" yaml:"total"`
+	Total   sdk.FurCoins                `json:"total" yaml:"total"`
 }
 
 // NewQueryDelegatorTotalRewardsResponse constructs a QueryDelegatorTotalRewardsResponse
 func NewQueryDelegatorTotalRewardsResponse(rewards []DelegationDelegatorReward,
-	total sdk.DecCoins) QueryDelegatorTotalRewardsResponse {
+	total sdk.FurCoins) QueryDelegatorTotalRewardsResponse {
 	return QueryDelegatorTotalRewardsResponse{Rewards: rewards, Total: total}
 }
 
@@ -35,6 +35,6 @@ func (res QueryDelegatorTotalRewardsResponse) String() string {
 // NewDelegationDelegatorReward constructs a DelegationDelegatorReward.
 //nolint:interfacer
 func NewDelegationDelegatorReward(valAddr sdk.ValAddress,
-	reward sdk.DecCoins) DelegationDelegatorReward {
+	reward sdk.FurCoins) DelegationDelegatorReward {
 	return DelegationDelegatorReward{ValidatorAddress: valAddr.String(), Reward: reward}
 }

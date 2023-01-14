@@ -288,7 +288,7 @@ func Test_GetReferralConfig(t *testing.T) {
 	defer ctrl.Finish()
 
 	srv := servicemock.NewMockService(ctrl)
-	srv.EXPECT().GetReferralConfig().Return(referral.NewConfig(sdk.MustNewDecFromStr("0.000100"), 30))
+	srv.EXPECT().GetReferralConfig().Return(referral.NewConfig(sdk.MustNewFurFromStr("0.000100"), 30))
 
 	router := chi.NewRouter()
 

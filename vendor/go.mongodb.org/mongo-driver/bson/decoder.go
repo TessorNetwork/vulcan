@@ -35,8 +35,8 @@ type Decoder struct {
 	vr bsonrw.ValueReader
 }
 
-// NewDecoder returns a new decoder that uses the DefaultRegistry to read from vr.
-func NewDecoder(vr bsonrw.ValueReader) (*Decoder, error) {
+// NewFuroder returns a new decoder that uses the DefaultRegistry to read from vr.
+func NewFuroder(vr bsonrw.ValueReader) (*Decoder, error) {
 	if vr == nil {
 		return nil, errors.New("cannot create a new Decoder with a nil ValueReader")
 	}
@@ -47,8 +47,8 @@ func NewDecoder(vr bsonrw.ValueReader) (*Decoder, error) {
 	}, nil
 }
 
-// NewDecoderWithContext returns a new decoder that uses DecodeContext dc to read from vr.
-func NewDecoderWithContext(dc bsoncodec.DecodeContext, vr bsonrw.ValueReader) (*Decoder, error) {
+// NewFuroderWithContext returns a new decoder that uses DecodeContext dc to read from vr.
+func NewFuroderWithContext(dc bsoncodec.DecodeContext, vr bsonrw.ValueReader) (*Decoder, error) {
 	if dc.Registry == nil {
 		dc.Registry = DefaultRegistry
 	}
